@@ -16,7 +16,7 @@ public class PerfectTeachingApplication extends WebMvcConfigurerAdapter {
 	public void addViewControllers(ViewControllerRegistry registry) {
 
 		//前台首页
-		registry.addViewController("/login").setViewName("admin/index");
+		registry.addViewController("/").setViewName("login");
 
 	}
 }

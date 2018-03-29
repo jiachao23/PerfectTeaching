@@ -1,15 +1,12 @@
 .carousel_div1{
-    background: url(../images/login-bg1.jpg) fixed center center;
+    background: url(../images/banner2.jpg) fixed center center;
 }
 .carousel_div2{
-    background: url(../images/login-bg2.jpg) fixed center center;
+    background: url(../images/banner1.jpg) fixed center center;
 }
 .carousel_div3{
-    background: url(../images/login-bg3.jpg) fixed center center;
+    background: url(../images/banner3.jpg) fixed center center;
 }
-
-
-
 body {
     overflow: hidden;
 }

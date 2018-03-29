@@ -1,4 +1,4 @@
-﻿<#include "/front/layout/_titleNav.ftl">
+<#include "/front/layout/_titleNav.ftl">
 <@html>
 <div class="top">
     <section class="box">
@@ -38,9 +38,9 @@
             <div class="blog-main-left">
                 <div class="layui-carousel" id="banner">
                     <div carousel-item="">
-                        <div><img src="${ctx!}/static/images/blog/banner1.jpg" class="banner"></div>
-                        <div><img src="${ctx!}/static/images/blog/banner2.jpg" class="banner"></div>
-                        <div><img src="${ctx!}/static/images/blog/banner3.jpg" class="banner"></div>
+                        <div><img src="${ctx!}/static/images/banner1.jpg" class="banner"></div>
+                        <div><img src="${ctx!}/static/images/banner2.jpg" class="banner"></div>
+                        <div><img src="${ctx!}/static/images/banner3.jpg" class="banner"></div>
                     </div>
                 </div>
             </div>
