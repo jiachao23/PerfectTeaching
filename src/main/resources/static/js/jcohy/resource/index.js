@@ -32,7 +32,7 @@ layui.define(['laypage', 'layer',  'table','common','form','util'], function (ex
     table.on('tool(table)', function(obj){
         var data = obj.data;
         // if(obj.event === 'detail'){
-        //     common.frame_show('分类添加','/resource/form');
+        //     com.jcohy.perfectteaching.common.frame_show('分类添加','/resource/form');
         //     // layer.msg('ID：'+ data.id + ' 的查看操作');
         // } else
         if(obj.event === 'del'){

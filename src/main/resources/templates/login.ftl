@@ -24,7 +24,7 @@
             <div class="carousel_div3"></div>
         </div>
         <div class="login layui-anim layui-anim-up">
-            <h1>应用后台管理平台V1.0</h1>
+            <h1>在线教育管理后台</h1>
             <form class="layui-form" action="${ctx!}/login" method="post">
                 <div class="layui-form-item">
                     <input type="text" name="name" lay-verify="required" placeholder="请输入账号" autocomplete="off"  value="" class="layui-input">
@@ -34,7 +34,8 @@
                 </div>
 
                 <div class="layui-input-block" style="margin-left: 0">
-                    <input type="checkbox" name="keepLogin" title="记住登录" checked>
+                    <input type="radio" name="sex" value="教师" title="教师">
+                    <input type="radio" name="sex" value="管理员" title="管理员" checked>
                 </div>
 
                 <button class="layui-btn login_btn" lay-submit="" lay-filter="login">登陆系统</button>
@@ -53,7 +54,7 @@
     }).use(['form','layer','jquery','common','carousel', 'element'], function () {
         var $ = layui.jquery,
                 form = layui.form,
-                common = layui.common,
+                com.jcohy.perfectteaching.common = layui.common,
                 carousel = layui.carousel,
                 layer = layui.layer;
 
@@ -68,51 +69,8 @@
             indicator:'none'
         });
 
-//            /**重新生成验证码*/
-//            function reqCaptcha() {
-//                var url = "/captcha.do?nocache=" + new Date().getTime()
-//                $('.code img').attr("src",url)
-//            }
-//            /**点击验证码重新生成*/
-//            $('.code img').on('click', function () {
-//                reqCaptcha();
-//            });
-
-        /**监听登陆提交*/
-        <#--form.on('submit(login)', function (data) {-->
-            <#--//弹出loading-->
-            <#--var loginLoading = top.layer.msg('登陆中，请稍候', {icon: 16, time: false, shade: 0.8});-->
-            <#--//记录ajax请求返回值-->
-            <#--var ajaxReturnData;-->
-
-            <#--//登陆验证-->
-            <#--$.ajax({-->
-                <#--url: '${ctx!}/login',-->
-                <#--type: 'post',-->
-                <#--async: false,-->
-                <#--data: data.field,-->
-                <#--success: function (data) {-->
-                    <#--ajaxReturnData = data;-->
-                <#--}-->
-            <#--});-->
-
-            <#--//登陆成功-->
-            <#--if (ajaxReturnData.isOk) {-->
-                <#--window.location.href="/index";-->
-                <#--top.layer.close(loginLoading);-->
-                <#--return false;-->
-            <#--} else {-->
-                <#--top.layer.close(loginLoading);-->
-                <#--common.cmsLayErrorMsg(ajaxReturnData.msg);-->
-<#--//                reqCaptcha();-->
-                <#--return false;-->
-            <#--}-->
-        <#--});-->
         //监听登陆提交
         form.on('submit(login)', function (data) {
-            // console.log(data.elem);//被执行事件的元素DOM对象，一般为button对象
-            // console.log(data.form);//被执行提交的form对象，一般在存在form标签时才会返回
-            // console.log(data.field);//当前容器的全部表单字段，名值对形式：{name: value}
             $.ajax({
                 type: "POST",
                 dataType: "json",

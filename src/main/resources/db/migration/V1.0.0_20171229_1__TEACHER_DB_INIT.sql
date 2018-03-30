@@ -82,6 +82,8 @@ CREATE TABLE `major` (
   `major_tel` varchar(50) DEFAULT NULL,
   `major_assistant` varchar(50) DEFAULT NULL,
   `dept_id` int(11) DEFAULT NULL,
+  `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `end` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `fk_major_dept` (`dept_id`),
   CONSTRAINT `fk_major_dept` FOREIGN KEY (`dept_id`) REFERENCES `dept` (`id`)
@@ -97,11 +99,11 @@ CREATE TABLE `major` (
 DROP TABLE IF EXISTS `plan`;
 CREATE TABLE `plan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `t_contemt` text,
+  `t_content` text,
   `dept_id` int(11) DEFAULT NULL,
   `major_id` int(11) DEFAULT NULL,
-  `start` datetime DEFAULT NULL,
-  `end` datetime DEFAULT NULL,
+  `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `end` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -139,7 +141,6 @@ CREATE TABLE `student` (
   `s_birth` datetime DEFAULT NULL,
   `s_class` varchar(50) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
-  `qq` varchar(50) DEFAULT NULL,
   `password` varchar(50) NOT NULL,
   `status` varchar(50) DEFAULT NULL,
   `major_id` int(11) DEFAULT NULL,
