@@ -12,10 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
 /**
- * Copyright  : 2015-2033 Beijing Startimes Communication & Network Technology Co.Ltd
- * Created by jiac on 2017/11/3 15:36.
  * ClassName  : HttpAspect
- * Description  :
+ * Description  :切面，主要获取请求信息。以及处理时间。
  */
 @Aspect
 @Component
@@ -56,7 +54,6 @@ public class HttpAspect {
         // 处理完请求，返回内容
         logger.info("RESPONSE : " + object.toString());
         logger.info("SPEND TIME : " + (System.currentTimeMillis() - startTime.get()));
-        System.out.println();
     }
 
 }

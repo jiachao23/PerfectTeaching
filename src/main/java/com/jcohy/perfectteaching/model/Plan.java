@@ -1,4 +1,4 @@
-package com.jcohy.perfectteaching.repository;
+package com.jcohy.perfectteaching.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

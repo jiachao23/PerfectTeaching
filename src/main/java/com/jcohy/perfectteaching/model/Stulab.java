@@ -1,4 +1,4 @@
-package com.jcohy.perfectteaching.repository;
+package com.jcohy.perfectteaching.model;
 
 import javax.persistence.*;
 import java.io.Serializable;

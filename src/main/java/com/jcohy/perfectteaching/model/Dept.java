@@ -1,30 +1,31 @@
-package com.jcohy.perfectteaching.repository;
+package com.jcohy.perfectteaching.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * ClassName  : com.jcohy.perfectteaching.repository
- * Description  :专业表
+ * Description  :院系表
  */
 @Entity
-@Table(name = "major")
-public class Major implements Serializable{
-    private static final long serialVersionUID = 5L;
+@Table(name = "dept")
+public class Dept implements Serializable{
+
+    private static final long serialVersionUID = 10L;
     //Id
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    //专业编号
+    //院系编号
     private Integer num;
-    //专业名
+    //名字
     private String name;
-    //专业办公室电话
+    //院系主任
+    private String chairman;
+    //电话
     private String tel;
-    //辅导员
-    private String assistant;
-    //所属院系
-    private Dept dept;
+    //简介
+    private String desc;
 
     public Integer getId() {
         return id;
@@ -50,6 +51,14 @@ public class Major implements Serializable{
         this.name = name;
     }
 
+    public String getChairman() {
+        return chairman;
+    }
+
+    public void setChairman(String chairman) {
+        this.chairman = chairman;
+    }
+
     public String getTel() {
         return tel;
     }
@@ -58,19 +67,11 @@ public class Major implements Serializable{
         this.tel = tel;
     }
 
-    public String getAssistant() {
-        return assistant;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setAssistant(String assistant) {
-        this.assistant = assistant;
-    }
-
-    public Dept getDept() {
-        return dept;
-    }
-
-    public void setDept(Dept dept) {
-        this.dept = dept;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 }
