@@ -22,6 +22,14 @@ public class Stulab implements Serializable{
 
     private Lab lab;
 
+    public Stulab() {
+    }
+
+    public Stulab(Student student, Lab lab) {
+        this.student = student;
+        this.lab = lab;
+    }
+
     public Integer getId() {
         return id;
     }

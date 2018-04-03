@@ -1,7 +1,7 @@
 package com.jcohy.perfectteaching.service;
 
 import com.jcohy.perfectteaching.exception.ServiceException;
-import com.jcohy.perfectteaching.model.Admin;
+import com.jcohy.perfectteaching.model.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * Description  :
  */
 
-public interface AdminService {
+public interface StudentService {
     /**
      * 用户登录
      * @param num  管理员编号
@@ -22,7 +22,7 @@ public interface AdminService {
      * @return
      * @throws Exception
      */
-    Admin login(Integer num, String password) throws Exception;
+    Student login(Integer num, String password) throws Exception;
 
 
     /**
@@ -30,14 +30,14 @@ public interface AdminService {
      * @param Pageable
      * @return
      */
-    Page<Admin> findAll(Pageable Pageable);
+    Page<Student> findAll(Pageable Pageable);
 
 
     /**
      *  查询
      * @return
      */
-    List<Admin> findAll();
+    List<Student> findAll();
 
 
     /**
@@ -45,20 +45,20 @@ public interface AdminService {
      * @param id
      * @return
      */
-    Admin findById(Integer id);
+    Student findById(Integer id);
 
     /**
      * 根据name查询
      * @param name
      * @return
      */
-    Admin findByName(String name);
+    Student findByName(String name);
 
     /**
      * 新增或者更新用户
      * @param user
      */
-    void saveOrUpdate(Admin user) throws ServiceException;
+    void saveOrUpdate(Student user) throws ServiceException;
 
     /**
      * 检查用户是否存在
@@ -80,5 +80,5 @@ public interface AdminService {
      * @param password1
      * @param password2
      */
-    void updatePassword(Admin user, String oldpassword, String password1, String password2);
+    void updatePassword(Student user, String oldpassword, String password1, String password2);
 }

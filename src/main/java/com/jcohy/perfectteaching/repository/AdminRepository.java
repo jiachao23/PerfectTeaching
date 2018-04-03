@@ -8,5 +8,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * ClassName  : com.jcohy.perfectteaching.repository
  * Description  :
  */
-public interface AdminRepository extends JpaRepository<Admin,Long> {
+public interface AdminRepository extends JpaRepository<Admin,Integer> {
+
+    Admin findAdminByNum(Integer num);
+
+    Admin findAdminByName(String name);
+
 }

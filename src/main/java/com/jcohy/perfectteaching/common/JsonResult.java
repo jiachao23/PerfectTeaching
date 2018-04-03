@@ -14,6 +14,7 @@ public class JsonResult extends HashMap{
     public static JsonResult ok() {
         return new JsonResult().setOk();
     }
+
     public static JsonResult ok(String msg) {
         return new JsonResult().setOk().set("msg", msg);
     }

@@ -20,6 +20,8 @@ public class Teacher implements Serializable{
     private Integer num;
     //密码
     private String password;
+    //电话
+    private Integer phone;
     //名字
     private String name;
     //性别
@@ -55,6 +57,14 @@ public class Teacher implements Serializable{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Integer phone) {
+        this.phone = phone;
     }
 
     public String getName() {

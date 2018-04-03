@@ -25,6 +25,8 @@ public class Admin implements Serializable{
     private String name;
     //密码
     private String password;
+    //电话
+    private Integer phone;
     //邮箱
     private String email;
     //性别
@@ -63,6 +65,14 @@ public class Admin implements Serializable{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Integer phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {

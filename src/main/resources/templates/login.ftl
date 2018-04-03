@@ -34,8 +34,8 @@
                 </div>
 
                 <div class="layui-input-block" style="margin-left: 0">
-                    <input type="radio" name="type" value="教师" title="教师">
-                    <input type="radio" name="type" value="管理员" title="管理员" checked>
+                    <input type="radio" name="role" value="教师" title="教师">
+                    <input type="radio" name="role" value="管理员" title="管理员" checked>
                 </div>
                 <button class="layui-btn login_btn" lay-submit="" lay-filter="login">登陆系统</button>
             </form>
@@ -76,6 +76,7 @@
                 url: "/login",
                 data: data.field,
                 success: function(ret){
+                    console.log(ret);
                     if(ret.isOk){
                         layer.msg("操作成功", {time: 2000},function(){
                             var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引

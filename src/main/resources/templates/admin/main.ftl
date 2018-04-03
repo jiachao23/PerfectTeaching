@@ -21,18 +21,11 @@
             <div class="ht-console">
                 <div class="ht-user">
                     <img src="${ctx!}/images/ico/jcohy.png" />
-                    <a class="ht-user-name">超级管理员</a>
-                    <input value="${role}">
+                    <a class="ht-user-name">${role}</a>
                 </div>
             </div>
-            <span class="sys-title">Jcohy后台管理系统</span>
+            <span class="sys-title">在线教育管理后台</span>
             <ul class="ht-nav">
-                <li class="ht-nav-item">
-                    <a target="_blank" href="/">前台入口</a>
-                </li>
-                <li class="ht-nav-item">
-                    <a href="javascript:;" id="individuation"><i class="fa fa-tasks fa-fw" style="padding-right:5px;"></i>个性化</a>
-                </li>
                 <li class="ht-nav-item">
                     <a href="${ctx!}/logout"><i class="fa fa-power-off fa-fw"></i>注销</a>
                 </li>
@@ -46,9 +39,9 @@
                         <a href="javascript:;"><i class="fa fa-home"></i>首页</a>
                     </li>
                     <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="fa fa-file-text"></i>内容管理</a>
+                        <a href="javascript:;"><i class="fa fa-file-text"></i>实验管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;" data-url="${ctx!}/admin/blog/index" data-id="1">文章管理</a></dd>
+                            <dd><a href="javascript:;" data-url="${ctx!}/admin/blog/index" data-id="1">实验管理</a></dd>
                             <dd><a href="javascript:;" data-url="${ctx!}/admin/resource/index" data-id="2">资源管理</a></dd>
                             <dd><a href="javascript:;" data-url="${ctx!}/admin/category/index" data-id="3">分类管理</a></dd>
                             <dd><a href="javascript:;" data-url="${ctx!}/admin/tag/index" data-id="4">标签管理</a></dd>

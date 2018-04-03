@@ -1,7 +1,7 @@
 package com.jcohy.perfectteaching.controller;
 
 import com.jcohy.perfectteaching.common.JsonResult;
-import com.jcohy.perfectteaching.service.UserService;
+import com.jcohy.perfectteaching.service.AdminService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,22 +13,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
 /**
- * Copyright  : 2015-2033 Beijing Startimes Communication & Network Technology Co.Ltd
- * Created by jiac on 2017/12/18 09:22.
  * ClassName  : LoginController
- * Description  :
+ * Description  :登录模块处理
  */
 @Controller
 public class LoginController {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     @Autowired
-    private UserService userService;
+    private AdminService adminService;
 
     @GetMapping("/login")
     public String login(){
+
         return "admin/index";
     }
 
@@ -38,17 +38,17 @@ public class LoginController {
      * @param response
      * @param name
      * @param password
-     * @param type
+     * @param role
      * @return
      */
     @PostMapping("/login")
     @ResponseBody
     public JsonResult login(HttpServletRequest request, HttpServletResponse response,
                             String name, String password,
-                            @RequestParam(required = false) String type){
+                            @RequestParam(required = false) String role){
         try {
-            logger.error("name:{}  password:{}  type:{}",name,password,type);
-
+            logger.error("name:{}  password:{}  type:{}",name,password,role);
+            request.getSession().setAttribute("role",role);
             return JsonResult.ok().set("returnUrl", "/admin/index");
         } catch (Exception e) {
             return JsonResult.fail(e.getMessage());

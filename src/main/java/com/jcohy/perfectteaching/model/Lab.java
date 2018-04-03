@@ -25,6 +25,8 @@ public class Lab implements Serializable{
     private String name;
     //实验内容
     private String content;
+    //状态
+    private Integer status;
     //开始日期
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
@@ -35,6 +37,14 @@ public class Lab implements Serializable{
     private Date end;
     //对应的测试题
     private Test test;
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
     public Integer getId() {
         return id;

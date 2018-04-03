@@ -96,6 +96,12 @@
 			<artifactId>commons-io</artifactId>
 			<version>2.5</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.jcohy/jcohy-yj-utils -->
+		<dependency>
+			<groupId>com.jcohy</groupId>
+			<artifactId>jcohy-yj-utils</artifactId>
+			<version>1.0.4.RELEASE</version>
+		</dependency>
 
 
 	</dependencies>
