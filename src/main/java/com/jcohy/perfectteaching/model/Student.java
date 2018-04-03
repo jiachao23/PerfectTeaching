@@ -14,27 +14,36 @@ public class Student  implements Serializable {
     private static final long serialVersionUID = 1L;
     //Id
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     //学号
+    @Column(name = "s_num")
     private Integer num;
     //密码
+    @Column(name = "password")
     private String password;
     //电话
+    @Column(name = "phone")
     private Integer phone;
     //名字
+    @Column(name = "s_name")
     private String name;
     //性别
+    @Column(name = "s_sex")
     private String sex;
     //生日
+    @Column(name = "s_birth")
     private String birth;
     //班级
+    @Column(name = "s_class")
     private String cclass;
     //电子邮箱
     private String email;
     //状态
     private String status;
     //专业
+    @ManyToOne
+    @JoinColumn(name = "major_id")
     private Major major;
 
     public Integer getId() {

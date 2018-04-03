@@ -13,7 +13,7 @@ public class Major implements Serializable{
     private static final long serialVersionUID = 5L;
     //Id
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     //专业编号
     private Integer num;

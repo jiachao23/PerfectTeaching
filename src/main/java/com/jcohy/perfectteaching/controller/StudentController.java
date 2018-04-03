@@ -1,6 +1,8 @@
 package com.jcohy.perfectteaching.controller;
 
+import com.jcohy.lang.StringUtils;
 import com.jcohy.perfectteaching.common.JsonResult;
+import com.jcohy.perfectteaching.exception.ServiceException;
 import com.jcohy.perfectteaching.model.Lab;
 import com.jcohy.perfectteaching.model.Student;
 import com.jcohy.perfectteaching.model.Stulab;
@@ -14,7 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -25,7 +29,7 @@ import java.util.stream.Collectors;
  * ClassName  : com.jcohy.perfectteaching.controller
  * Description  :
  */
-@Controller
+@RestController
 @RequestMapping("/student")
 public class StudentController {
 
@@ -46,13 +50,28 @@ public class StudentController {
 
     }
 
+    /**
+     * 用户登陆接口
+     * @param num 学号
+     * @param password 密码
+     * @return
+     */
     @GetMapping("/login")
     public JsonResult login(Integer num,String password){
         Student login = null;
+
         try {
+            if(num == null || StringUtils.isEmpty(password)){
+                return JsonResult.fail("用户名或者密码不能为空");
+            }
+
             login = studentService.login(num, password);
+
             if(login == null){
-                return JsonResult.fail("登录失败,用户名或密码不正确");
+                return JsonResult.fail("登录失败,用户名不存在");
+            }
+            if(!login.getPassword().equals(password)){
+                return JsonResult.fail("登录失败,用户名账号密码不匹配");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -60,8 +79,19 @@ public class StudentController {
         return JsonResult.ok("登录成功").set("data",login);
     }
 
+    /**
+     * 注册接口
+     * @param num 学号 必填
+     * @param phone 电话 必填
+     * @param password 密码 必填
+     * @param name 姓名 必填
+     * @return
+     */
     @GetMapping("/register")
-    public JsonResult register(Integer num,Integer phone,String password,String email){
+    public JsonResult register(Integer num, Integer phone, String password, String name){
+        if(num == null||phone == null || StringUtils.isAllEmpty(password,name)){
+            return JsonResult.fail("参数不能为空");
+        }
         boolean exist = studentService.checkUser(num);
         if(exist){
             return JsonResult.fail("用户已存在");
@@ -69,7 +99,7 @@ public class StudentController {
         Student student = new Student();
         student.setNum(num);
         student.setPassword(password);
-        student.setEmail(email);
+        student.setName(name);
         student.setPhone(phone);
         studentService.saveOrUpdate(student);
         return JsonResult.ok("注册成功").set("data",student);
@@ -78,8 +108,7 @@ public class StudentController {
     @GetMapping("/update")
     public JsonResult update(Student student){
         try {
-            studentService.saveOrUpdate(student);
-            Student stu = studentService.findById(student.getId());
+            Student stu = studentService.saveOrUpdate(student);
             return JsonResult.ok().set("data",stu);
         } catch (Exception e) {
             e.printStackTrace();

@@ -58,7 +58,7 @@ public interface StudentService {
      * 新增或者更新用户
      * @param user
      */
-    void saveOrUpdate(Student user) throws ServiceException;
+    Student saveOrUpdate(Student user) throws ServiceException;
 
     /**
      * 检查用户是否存在

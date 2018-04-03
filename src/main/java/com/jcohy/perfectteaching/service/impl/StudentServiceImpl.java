@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by jiac on 2018/4/2.
@@ -28,9 +29,6 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public Student login(Integer num, String password) throws Exception {
-        if(num == null || StringUtils.isEmpty(password)){
-            throw new ServiceException("用户名或者密码不能为空");
-        }
         return studentRepository.findAdminByNum(num);
     }
 
@@ -56,8 +54,21 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public void saveOrUpdate(Student user) throws ServiceException {
-        studentRepository.save(user);
+    public Student saveOrUpdate(Student user) throws ServiceException {
+        Student dbUser =null;
+        if(user.getId() != null){
+            dbUser = findById(user.getId());
+            if(user.getBirth() == null ) dbUser.setBirth(user.getBirth());
+            if(user.getCclass() == null ) dbUser.setCclass(user.getCclass());
+            if(user.getMajor() == null ) dbUser.setMajor(user.getMajor());
+            if(user.getSex() == null ) dbUser.setSex(user.getSex());
+            if(user.getEmail() == null ) dbUser.setEmail(user.getEmail());
+            if(user.getPhone() == null ) dbUser.setPhone(user.getPhone());
+        }else{
+            dbUser =user;
+        }
+
+        return studentRepository.save(dbUser);
     }
 
     @Override
