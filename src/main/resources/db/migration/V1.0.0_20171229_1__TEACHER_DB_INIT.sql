@@ -224,7 +224,7 @@ CREATE TABLE `report` (
   `grade` int(11) DEFAULT NULL,
   `s_id` int(11) DEFAULT NULL,
   `lab_id` int(11) DEFAULT NULL,
-  `usr_option` varchar(255) DEFAULT NULL,
+  `usr_option` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `report_student_id` (`s_id`),

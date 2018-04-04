@@ -27,4 +27,13 @@ public class Answer implements Serializable{
     public void setAnswer(String answer) {
         this.answer = answer;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Answer{");
+        sb.append("index=").append(index);
+        sb.append(", answer='").append(answer).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }

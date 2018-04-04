@@ -1,19 +1,19 @@
 package com.jcohy.perfectteaching.controller;
 
+import com.google.gson.Gson;
 import com.jcohy.lang.StringUtils;
 import com.jcohy.perfectteaching.common.JsonResult;
 import com.jcohy.perfectteaching.exception.ServiceException;
-import com.jcohy.perfectteaching.model.Lab;
-import com.jcohy.perfectteaching.model.Report;
-import com.jcohy.perfectteaching.model.Student;
-import com.jcohy.perfectteaching.model.Teacher;
+import com.jcohy.perfectteaching.model.*;
 import com.jcohy.perfectteaching.service.LabService;
 import com.jcohy.perfectteaching.service.ReportService;
 import com.jcohy.perfectteaching.service.StudentService;
 import com.jcohy.perfectteaching.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.converter.json.GsonFactoryBean;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -189,12 +189,12 @@ public class StudentController {
     }
 
     @PostMapping("/labs/commit")
-    public JsonResult commit(Integer studentId,Integer labsId,String result){
-
+    public JsonResult commit(@RequestBody() String result){
+        Gson gson = new Gson();
+        Answers answers = gson.fromJson(result, Answers.class);
         Report report = null;
         try{
-            report = reportService.commit(studentId,labsId,result);
-
+            report = reportService.commit(answers.getStudentId(),answers.getLabId(),answers.getAnswers().toString());
         }catch (Exception e){
             return JsonResult.fail("保存失败");
         }

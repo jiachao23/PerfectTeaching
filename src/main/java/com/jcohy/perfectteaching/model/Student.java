@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -42,11 +41,13 @@ public class Student  implements Serializable {
     @Column(name = "s_class")
     private String cclass;
     //电子邮箱
+    @Column(name = "email")
     private String email;
     //状态
+    @Column(name = "status")
     private String status;
     //专业
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     @JoinColumn(name = "major_id")
     private Major major;
 
