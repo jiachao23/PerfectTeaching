@@ -16,14 +16,21 @@ public class Major implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     //专业编号
+    @Column(name = "major_num")
     private Integer num;
     //专业名
+    @Column(name = "major_name")
     private String name;
     //专业办公室电话
+    @Column(name = "major_tel")
     private String tel;
     //辅导员
+    @Column(name = "major_assistant")
     private String assistant;
     //所属院系
+
+    @ManyToOne
+    @JoinColumn(name = "dept_id")
     private Dept dept;
 
     public Integer getId() {

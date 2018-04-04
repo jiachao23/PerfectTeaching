@@ -2,6 +2,7 @@ package com.jcohy.perfectteaching.service.impl;
 
 import com.jcohy.perfectteaching.model.Lab;
 import com.jcohy.perfectteaching.repository.LabRepository;
+import com.jcohy.perfectteaching.repository.ReportRepository;
 import com.jcohy.perfectteaching.service.LabService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,6 +22,8 @@ public class LabServiceImpl implements LabService{
     @Autowired
     private LabRepository labRepository;
 
+    @Autowired
+    private ReportRepository reportRepository;
 
     @Override
     public List<Lab> findAll() {
@@ -63,10 +66,5 @@ public class LabServiceImpl implements LabService{
                 break;
         }
         return labRepository.save(lab);
-    }
-
-    @Override
-    public List<Lab> findByUserId(Integer userId) {
-        return null;
     }
 }

@@ -4,24 +4,18 @@ import com.jcohy.lang.StringUtils;
 import com.jcohy.perfectteaching.common.JsonResult;
 import com.jcohy.perfectteaching.exception.ServiceException;
 import com.jcohy.perfectteaching.model.Lab;
+import com.jcohy.perfectteaching.model.Report;
 import com.jcohy.perfectteaching.model.Student;
-import com.jcohy.perfectteaching.model.Stulab;
 import com.jcohy.perfectteaching.model.Teacher;
-import com.jcohy.perfectteaching.repository.StuLabRepository;
 import com.jcohy.perfectteaching.service.LabService;
+import com.jcohy.perfectteaching.service.ReportService;
 import com.jcohy.perfectteaching.service.StudentService;
 import com.jcohy.perfectteaching.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Predicate;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -43,7 +37,8 @@ public class StudentController {
     private TeacherService teacherService;
 
     @Autowired
-    private StuLabRepository stuLabRepository;
+    private ReportService reportService;
+
 
     @GetMapping
     public void index(){
@@ -89,7 +84,7 @@ public class StudentController {
      */
     @GetMapping("/register")
     public JsonResult register(Integer num, Integer phone, String password, String name){
-        if(num == null||phone == null || StringUtils.isAllEmpty(password,name)){
+        if(num == null||phone == null || StringUtils.hashEmpty(name,password)){
             return JsonResult.fail("参数不能为空");
         }
         boolean exist = studentService.checkUser(num);
@@ -105,6 +100,11 @@ public class StudentController {
         return JsonResult.ok("注册成功").set("data",student);
     }
 
+    /**
+     * 更新学生信息
+     * @param student
+     * @return
+     */
     @GetMapping("/update")
     public JsonResult update(Student student){
         try {
@@ -117,40 +117,87 @@ public class StudentController {
     }
 
 
+    /**
+     * 获取全部实验
+     * @return
+     */
     @GetMapping("/labs")
     public JsonResult findAll(){
         List<Lab> all = labService.findAll();
-        return JsonResult.ok().set("data",all);
+        return JsonResult.ok("获取成功").set("data",all);
     }
 
+    /**
+     * 实验详情接口
+     * @param id
+     * @return
+     */
     @GetMapping("/lab/{id}")
     public JsonResult getLab(@PathVariable("id") Integer id){
-        Lab lab = labService.findById(id);
-        return JsonResult.ok().set("data",lab);
+        Lab lab = null;
+        try {
+             lab = labService.findById(id);
+        }catch (Exception e){
+            return JsonResult.fail("此课程不存在");
+        }
+        return JsonResult.ok("获取成功").set("data",lab);
     }
 
-    @GetMapping("/teacher")
-    public JsonResult getteachers(){
-        List<Teacher> teachers = teacherService.findAll();
-        return JsonResult.ok().set("data",teachers);
+    /**
+     * 获取教师信息
+     * @return
+     */
+    @GetMapping("/teacher/{teacherId}")
+    public JsonResult getteachers(@PathVariable("teacherId") Integer teacherId){
+        Teacher teacher = null;
+        try {
+            teacher = teacherService.findById(teacherId);
+        }catch (Exception e){
+            return JsonResult.fail("此教师不存在");
+        }
+        return JsonResult.ok("获取成功").set("data",teacher);
     }
 
+    /**
+     * 选择课程接口
+     * @param studentId
+     * @param labId
+     * @return
+     */
     @GetMapping("/{studentId}/{labId}")
     public JsonResult chooseLab(@PathVariable("studentId") Integer studentId,@PathVariable("labId") Integer labId){
         Student student = studentService.findById(studentId);
         Lab lab = labService.findById(labId);
-        Stulab stulab = new Stulab(student,lab);
-        stulab = stuLabRepository.save(stulab);
-        return JsonResult.ok().set("data",stulab);
+        if(lab == null){
+            return JsonResult.fail("所选实验不存在");
+        }
+        Set<Lab> labs = student.getLabs();
+        labs.add(lab);
+        studentService.saveOrUpdate(student);
+        return JsonResult.ok().set("data", student);
     }
 
+    /**
+     * 获取当前学生选择的实验
+     * @param studentId
+     * @return
+     */
     @GetMapping("/labs/{studentId}")
     public JsonResult chooseByStudent(@PathVariable("studentId") Integer studentId){
-        List<Stulab> all = stuLabRepository.findAll();
-        List<Stulab> list = all.stream().filter(labs -> labs.getStudent().getId() == studentId).collect(Collectors.toList());
-        return JsonResult.ok().set("data",list);
+        Student student = studentService.findById(studentId);
+        return JsonResult.ok().set("data",student.getLabs());
     }
 
-    
+    @PostMapping("/labs/commit")
+    public JsonResult commit(Integer studentId,Integer labsId,String result){
 
+        Report report = null;
+        try{
+            report = reportService.commit(studentId,labsId,result);
+
+        }catch (Exception e){
+            return JsonResult.fail("保存失败");
+        }
+        return JsonResult.ok().set("data",report);
+    }
 }

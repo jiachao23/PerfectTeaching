@@ -14,14 +14,17 @@ public class Test implements Serializable{
     private static final long serialVersionUID = 9L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer index;
-
+    @Column(name = "content")
     private String content;
 
+    @Column(name = "answer")
     private String answer;
+
+    @Column(name = "option")
+    private String option;
 
     public Integer getId() {
         return id;
@@ -29,14 +32,6 @@ public class Test implements Serializable{
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getIndex() {
-        return index;
-    }
-
-    public void setIndex(Integer index) {
-        this.index = index;
     }
 
     public String getContent() {
@@ -53,5 +48,13 @@ public class Test implements Serializable{
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public String getOption() {
+        return option;
+    }
+
+    public void setOption(String option) {
+        this.option = option;
     }
 }

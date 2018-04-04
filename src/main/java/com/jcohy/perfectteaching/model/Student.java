@@ -1,7 +1,11 @@
 package com.jcohy.perfectteaching.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * ClassName  : com.jcohy.perfectteaching.repository
@@ -42,9 +46,14 @@ public class Student  implements Serializable {
     //状态
     private String status;
     //专业
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "major_id")
     private Major major;
+
+    @ManyToMany
+    @JoinTable(name = "stulab", joinColumns = @JoinColumn(name = "s_id"), inverseJoinColumns = @JoinColumn(name = "lab_id"))
+    @JsonBackReference
+    private Set<Lab> labs;
 
     public Integer getId() {
         return id;
@@ -132,5 +141,31 @@ public class Student  implements Serializable {
 
     public void setMajor(Major major) {
         this.major = major;
+    }
+
+    public Set<Lab> getLabs() {
+        return labs;
+    }
+
+    public void setLabs(Set<Lab> labs) {
+        this.labs = labs;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", num=" + num +
+                ", password='" + password + '\'' +
+                ", phone=" + phone +
+                ", name='" + name + '\'' +
+                ", sex='" + sex + '\'' +
+                ", birth='" + birth + '\'' +
+                ", cclass='" + cclass + '\'' +
+                ", email='" + email + '\'' +
+                ", status='" + status + '\'' +
+                ", major=" + major +
+                ", labs=" + labs +
+                '}';
     }
 }

@@ -1,6 +1,5 @@
 package com.jcohy.perfectteaching.service;
 
-import com.jcohy.perfectteaching.exception.ServiceException;
 import com.jcohy.perfectteaching.model.Lab;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -63,5 +62,4 @@ public interface LabService {
      */
     Lab change(Integer id,String type);
 
-    List<Lab>  findByUserId(Integer userId);
 }

@@ -14,25 +14,35 @@ public class Teacher implements Serializable{
     private static final long serialVersionUID = 2L;
     //Id
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     //编号
+    @Column(name = "t_num")
     private Integer num;
     //密码
+    @Column(name = "password")
     private String password;
     //电话
+    @Column(name = "phone")
     private Integer phone;
     //名字
+    @Column(name = "t_name")
     private String name;
     //性别
+    @Column(name = "t_sex")
     private String sex;
     //生日
+    @Column(name = "t_birth")
     private String birth;
     //职称
+    @Column(name = "t_title")
     private String title;
     //电子邮箱
+    @Column(name = "email")
     private String email;
     //状态
+    @ManyToOne
+    @JoinColumn(name = "dept_id")
     private Dept dept;
 
     public Integer getId() {

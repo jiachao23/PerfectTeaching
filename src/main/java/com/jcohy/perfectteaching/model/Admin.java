@@ -17,22 +17,29 @@ public class Admin implements Serializable{
     private static final long serialVersionUID = 3L;
     //Id
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     //编号，使用此信息登录
+    @Column(name = "admin_num")
     private Integer num;
     //名字
+    @Column(name = "admin_name")
     private String name;
     //密码
+    @Column(name = "password")
     private String password;
     //电话
+    @Column(name = "phone")
     private Integer phone;
     //邮箱
+    @Column(name = "email")
     private String email;
     //性别
+    @Column(name = "admin_sex")
     private String sex;
     //出生日期
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @Column(name = "admin_birth")
     private Date birth;
 
     public Integer getId() {

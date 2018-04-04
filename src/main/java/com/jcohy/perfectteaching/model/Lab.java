@@ -1,10 +1,13 @@
 package com.jcohy.perfectteaching.model;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * ClassName  : com.jcohy.perfectteaching.repository
@@ -17,34 +20,39 @@ public class Lab implements Serializable{
     private static final long serialVersionUID = 4L;
     //Id
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     //实验编号
+    @Column(name = "lab_num")
     private Integer num;
     //实验名称
+    @Column(name = "lab_name")
     private String name;
     //实验内容
+    @Column(name = "lab_content")
     private String content;
     //状态
+    @Column(name = "status")
     private Integer status;
     //开始日期
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "start")
     private Date satrt;
     //结束日期
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "end")
     private Date end;
     //对应的测试题
+    @OneToOne
+    @JoinColumn(name = "test_id")
     private Test test;
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "labs")
+    //NotFound : 意思是找不到引用的外键数据时忽略，NotFound默认是exception
+    @NotFound(action = NotFoundAction.IGNORE)
+    private Set<Student> Student;
 
     public Integer getId() {
         return id;
@@ -78,6 +86,14 @@ public class Lab implements Serializable{
         this.content = content;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public Date getSatrt() {
         return satrt;
     }
@@ -100,5 +116,13 @@ public class Lab implements Serializable{
 
     public void setTest(Test test) {
         this.test = test;
+    }
+
+    public Set<Student> getStudent() {
+        return Student;
+    }
+
+    public void setStudent(Set<Student> student) {
+        Student = student;
     }
 }

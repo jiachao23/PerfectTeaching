@@ -2,11 +2,8 @@ package com.jcohy.perfectteaching.service.impl;
 
 import com.jcohy.lang.StringUtils;
 import com.jcohy.perfectteaching.exception.ServiceException;
-import com.jcohy.perfectteaching.model.Admin;
 import com.jcohy.perfectteaching.model.Student;
-import com.jcohy.perfectteaching.repository.AdminRepository;
 import com.jcohy.perfectteaching.repository.StudentRepository;
-import com.jcohy.perfectteaching.service.AdminService;
 import com.jcohy.perfectteaching.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by jiac on 2018/4/2.
@@ -58,12 +54,14 @@ public class StudentServiceImpl implements StudentService{
         Student dbUser =null;
         if(user.getId() != null){
             dbUser = findById(user.getId());
-            if(user.getBirth() == null ) dbUser.setBirth(user.getBirth());
-            if(user.getCclass() == null ) dbUser.setCclass(user.getCclass());
-            if(user.getMajor() == null ) dbUser.setMajor(user.getMajor());
-            if(user.getSex() == null ) dbUser.setSex(user.getSex());
-            if(user.getEmail() == null ) dbUser.setEmail(user.getEmail());
-            if(user.getPhone() == null ) dbUser.setPhone(user.getPhone());
+            if(user.getBirth() != null ) dbUser.setBirth(user.getBirth());
+            if(user.getCclass() != null ) dbUser.setCclass(user.getCclass());
+            if(user.getMajor() != null ) dbUser.setMajor(user.getMajor());
+            if(user.getSex() != null ) dbUser.setSex(user.getSex());
+            if(user.getEmail() != null ) dbUser.setEmail(user.getEmail());
+            if(user.getPhone() != null ) dbUser.setPhone(user.getPhone());
+            if(user.getPassword() != null ) dbUser.setPassword(user.getPassword());
+            if(user.getLabs() != null && user.getLabs().size() > 0) dbUser.setLabs(user.getLabs());
         }else{
             dbUser =user;
         }

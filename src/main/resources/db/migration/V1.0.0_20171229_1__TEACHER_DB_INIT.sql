@@ -34,6 +34,8 @@ CREATE TABLE `admin` (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
+INSERT INTO `admin` VALUES ('1', '1001', '管理员', '男', '2018-04-09 10:27:51', '123456', '123456', 'admin@qq.com');
+
 
 -- ----------------------------
 -- Table structure for dept
@@ -52,26 +54,7 @@ CREATE TABLE `dept` (
 -- ----------------------------
 -- Records of dept
 -- ----------------------------
-
--- ----------------------------
--- Table structure for lab
--- ----------------------------
-DROP TABLE IF EXISTS `lab`;
-CREATE TABLE `lab` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `lab_num` int(11) DEFAULT NULL,
-  `lab_name` varchar(50) DEFAULT NULL,
-  `lab_content` varchar(50) DEFAULT NULL,
-  `status` int(11) NOT NULL DEFAULT '0' COMMENT '状态',
-  `test_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_test_id` (`test_id`),
-  CONSTRAINT `fk_test_id` FOREIGN KEY (`test_id`) REFERENCES `test` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of lab
--- ----------------------------
+INSERT INTO `dept` VALUES ('1', '1001', '计算机科学与工程', '小高', '123456789', '计算机');
 
 -- ----------------------------
 -- Table structure for major
@@ -84,52 +67,41 @@ CREATE TABLE `major` (
   `major_tel` varchar(50) DEFAULT NULL,
   `major_assistant` varchar(50) DEFAULT NULL,
   `dept_id` int(11) DEFAULT NULL,
-  `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `end` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `fk_major_dept` (`dept_id`),
-  CONSTRAINT `fk_major_dept` FOREIGN KEY (`dept_id`) REFERENCES `dept` (`id`)
+  KEY `major_dept_id` (`dept_id`),
+  CONSTRAINT `major_dept_id` FOREIGN KEY (`dept_id`) REFERENCES `dept` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of major
 -- ----------------------------
+INSERT INTO `major` VALUES ('1', '100106', '软件工程', '123456789', '小高', '1');
+INSERT INTO `major` VALUES ('2', '100107', '信息工程', '123456789', '小倩', '1');
 
 -- ----------------------------
--- Table structure for plan
+-- Table structure for teacher
 -- ----------------------------
-DROP TABLE IF EXISTS `plan`;
-CREATE TABLE `plan` (
+DROP TABLE IF EXISTS `teacher`;
+CREATE TABLE `teacher` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `t_content` text,
+  `t_num` int(11) NOT NULL,
+  `t_name` varchar(50) NOT NULL,
+  `t_sex` varchar(2) DEFAULT NULL,
+  `t_title` varchar(50) DEFAULT NULL,
+  `t_birth` datetime DEFAULT NULL,
+  `phone` int(20) DEFAULT NULL COMMENT '电话',
+  `password` varchar(255) NOT NULL,
   `dept_id` int(11) DEFAULT NULL,
-  `major_id` int(11) DEFAULT NULL,
-  `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `end` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of plan
--- ----------------------------
-
--- ----------------------------
--- Table structure for report
--- ----------------------------
-DROP TABLE IF EXISTS `report`;
-CREATE TABLE `report` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `grade` int(11) DEFAULT NULL,
-  `stulab_id` int(11) DEFAULT NULL,
-  `remark` varchar(255) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_report_stulab` (`stulab_id`),
-  CONSTRAINT `fk_report_stulab` FOREIGN KEY (`stulab_id`) REFERENCES `stulab` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `teacher_dept_id` (`dept_id`),
+  CONSTRAINT `teacher_dept_id` FOREIGN KEY (`dept_id`) REFERENCES `dept` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of report
+-- Records of teacher
 -- ----------------------------
+INSERT INTO `teacher` VALUES ('1', '1002', '小倩', '女', '教授', '2018-04-04 10:28:51', '123456', '123456', '1', 'xiaoqian@qq.com');
 
 -- ----------------------------
 -- Table structure for student
@@ -148,13 +120,60 @@ CREATE TABLE `student` (
   `status` varchar(50) DEFAULT NULL,
   `major_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_stu_major` (`major_id`),
-  CONSTRAINT `fk_stu_major` FOREIGN KEY (`major_id`) REFERENCES `major` (`id`)
+  KEY `student_major_id` (`major_id`),
+  CONSTRAINT `student_major_id` FOREIGN KEY (`major_id`) REFERENCES `major` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of student
 -- ----------------------------
+INSERT INTO `student` VALUES ('1', '1306', '小美', '女', '2018-04-04 10:54:55', '1', 'stu@qq.com', '123456', '123456', '1', '1');
+
+
+-- ----------------------------
+-- Table structure for test
+-- ----------------------------
+DROP TABLE IF EXISTS `test`;
+CREATE TABLE `test` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `content` varchar(255) DEFAULT NULL,
+  `option` varchar(255) DEFAULT NULL,
+  `answer` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of test
+-- ----------------------------
+INSERT INTO `test` VALUES ('1', 'who?', 'A,B,C,D', 'A');
+INSERT INTO `test` VALUES ('2', 'where', 'A,B,C,D', 'B');
+INSERT INTO `test` VALUES ('3', 'how?', 'A,B,C,D', 'C');
+INSERT INTO `test` VALUES ('4', 'why?', 'A,B,C,D', 'D');
+
+-- ----------------------------
+-- Table structure for lab
+-- ----------------------------
+DROP TABLE IF EXISTS `lab`;
+CREATE TABLE `lab` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `lab_num` int(11) DEFAULT NULL,
+  `lab_name` varchar(50) DEFAULT NULL,
+  `lab_content` varchar(50) DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT '0' COMMENT '状态',
+  `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `end` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `test_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lab_test_id` (`test_id`),
+  CONSTRAINT `lab_test_id` FOREIGN KEY (`test_id`) REFERENCES `test` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of lab
+-- ----------------------------
+INSERT INTO `lab` VALUES ('1', '1', '1', '1', '0','2018-04-04 10:27:13', '2018-04-04 10:27:13', '1');
+
+
 
 -- ----------------------------
 -- Table structure for stulab
@@ -165,52 +184,61 @@ CREATE TABLE `stulab` (
   `s_id` int(11) NOT NULL,
   `lab_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_stu_id` (`s_id`),
-  KEY `fk_lab_id` (`lab_id`),
-  CONSTRAINT `fk_lab_id` FOREIGN KEY (`lab_id`) REFERENCES `lab` (`id`),
-  CONSTRAINT `fk_stu_id` FOREIGN KEY (`s_id`) REFERENCES `student` (`id`)
+  KEY `stulab_student_id` (`s_id`),
+  KEY `stulab_lab_id` (`lab_id`),
+  CONSTRAINT `stulab_lab_id` FOREIGN KEY (`lab_id`) REFERENCES `lab` (`id`),
+  CONSTRAINT `stulab_student_id` FOREIGN KEY (`s_id`) REFERENCES `student` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stulab
 -- ----------------------------
+INSERT INTO `stulab` VALUES ('1', '1', '1');
 
 -- ----------------------------
--- Table structure for teacher
+-- Table structure for plan
 -- ----------------------------
-DROP TABLE IF EXISTS `teacher`;
-CREATE TABLE `teacher` (
+DROP TABLE IF EXISTS `plan`;
+CREATE TABLE `plan` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `t_num` int(11) NOT NULL,
-  `t_name` varchar(50) NOT NULL,
-  `t_sex` varchar(2) DEFAULT NULL,
-  `t_title` varchar(50) DEFAULT NULL,
-  `t_birth` datetime DEFAULT NULL,
-  `phone` int(20) DEFAULT NULL COMMENT '电话',
-  `password` varchar(255) NOT NULL,
+  `content` text,
   `dept_id` int(11) DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_teacher_dept` (`dept_id`),
-  CONSTRAINT `fk_teacher_dept` FOREIGN KEY (`dept_id`) REFERENCES `dept` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of teacher
--- ----------------------------
-
--- ----------------------------
--- Table structure for test
--- ----------------------------
-DROP TABLE IF EXISTS `test`;
-CREATE TABLE `test` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `index` int(11) DEFAULT NULL,
-  `content` varchar(255) DEFAULT NULL,
-  `answer` varchar(255) DEFAULT NULL,
+  `major_id` int(11) DEFAULT NULL,
+  `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `end` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 -- ----------------------------
--- Records of test
+-- Records of plan
 -- ----------------------------
+INSERT INTO `plan` VALUES ('1', '1', '1', '2', '2018-04-04 10:27:13', '2018-04-04 10:27:13');
+
+-- ----------------------------
+-- Table structure for report
+-- ----------------------------
+DROP TABLE IF EXISTS `report`;
+CREATE TABLE `report` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `grade` int(11) DEFAULT NULL,
+  `s_id` int(11) DEFAULT NULL,
+  `lab_id` int(11) DEFAULT NULL,
+  `usr_option` varchar(255) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `report_student_id` (`s_id`),
+  KEY `report_lab_id` (`lab_id`),
+  CONSTRAINT `report_lab_id` FOREIGN KEY (`lab_id`) REFERENCES `lab` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `report_student_id` FOREIGN KEY (`s_id`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of report
+-- ----------------------------
+INSERT INTO `report` VALUES ('1', '1', '1','1', 'A,D,C,C', '1');
+
+
+
+
+

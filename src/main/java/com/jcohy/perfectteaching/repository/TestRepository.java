@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * ClassName  : com.jcohy.perfectteaching.repository
  * Description  :
  */
-public interface TestRepository  extends JpaRepository<Test,Long> {
+public interface TestRepository  extends JpaRepository<Test,Integer> {
 }

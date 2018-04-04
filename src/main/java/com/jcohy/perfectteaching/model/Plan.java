@@ -18,21 +18,26 @@ public class Plan implements Serializable{
 
     //Id
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     //计划内容
+    @Column(name = "content")
     private String content;
     //院系
+    @Column(name = "dept_id")
     private Dept dept;
     //专业
+    @Column(name = "major_id")
     private Major major;
     //开始时间
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @Column(name = "start")
     private Date start;
     //结束时间
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @Column(name = "end")
     private Date end;
 
     public Integer getId() {

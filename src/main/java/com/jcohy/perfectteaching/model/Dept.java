@@ -17,14 +17,19 @@ public class Dept implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     //院系编号
+    @Column(name = "dept_num")
     private Integer num;
     //名字
+    @Column(name = "dept_name")
     private String name;
     //院系主任
+    @Column(name = "dept_chairman")
     private String chairman;
     //电话
+    @Column(name = "dept_tel")
     private String tel;
     //简介
+    @Column(name = "dept_desc")
     private String desc;
 
     public Integer getId() {
