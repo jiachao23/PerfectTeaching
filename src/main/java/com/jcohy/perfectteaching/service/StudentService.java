@@ -17,7 +17,7 @@ import java.util.List;
 public interface StudentService {
     /**
      * 用户登录
-     * @param num  管理员编号
+     * @param num  编号
      * @param password
      * @return
      * @throws Exception
@@ -39,7 +39,11 @@ public interface StudentService {
      */
     List<Student> findAll();
 
-
+    /**
+     *  查询
+     * @return
+     */
+    Student findByNum(Integer num);
     /**
      * 根据ID查询
      * @param id
@@ -76,9 +80,6 @@ public interface StudentService {
     /**
      * 修改用户密码
      * @param user
-     * @param oldpassword
-     * @param password1
-     * @param password2
      */
-    void updatePassword(Student user, String oldpassword, String password1, String password2);
+    void updatePassword(Student user);
 }

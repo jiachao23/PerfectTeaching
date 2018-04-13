@@ -1,213 +1,141 @@
-jQuery(function($) {'use strict';
+﻿layui.define(['element', 'layer', 'util', 'form','common'], function (exports) {
+    var $ = layui.jquery,
+        element = layui.element,
+        form = layui.form,
+        layer = layui.layer,
+        util = layui.util,
+        form = layui.form,
+        common = layui.common;
+    //登录后禁用后退功能。
+    $(document).ready(function(e) {
+        if (window.history && window.history.pushState) {
+            $(window).on('popstate', function () {
+                window.history.pushState('forward', null, '#');
+                window.history.forward(1);
+            });
+        }
+        window.history.pushState('forward', null, '#'); //在IE中必须得有这两行
+        window.history.forward(1);
+    });
 
-	// Navigation Scroll
-	$(window).scroll(function(event) {
-		Scroll();
-	});
+    //监听左侧导航点击
+    element.on('nav(leftnav)', function (elem) {
+        var url = $(elem).children('a').attr('data-url');   //页面url
+        var id = $(elem).children('a').attr('data-id');     //tab唯一Id
+        var title = $(elem).children('a').text();           //菜单名称
+            if (title == "首页") {
+                element.tabChange('tab', 0);
+                return;
+            }
+            if (url == undefined) return;
 
-	$('.navbar-collapse ul li a').on('click', function() {
-		$('html, body').animate({scrollTop: $(this.hash).offset().top - 5}, 1000);
-		return false;
-	});
+            var tabTitleDiv = $('.layui-tab[lay-filter=\'tab\']').children('.layui-tab-title');
+            var exist = tabTitleDiv.find('li[lay-id=' + id + ']');
+            if (exist.length > 0) {
+                //切换到指定索引的卡片
+                element.tabChange('tab', id);
+            } else {
+                var index = layer.load(1);
+                //由于Ajax调用本地静态页面存在跨域问题，这里用iframe
+                setTimeout(function () {
+                    //模拟菜单加载
+                    layer.close(index);
+                    element.tabAdd('tab', { title: title, content: '<iframe src="' + url + '" style="width:100%;height:100%;border:none;outline:none;"></iframe>', id: id });
+                    //切换到指定索引的卡片
+                    element.tabChange('tab', id);
+                }, 500);
+            }
 
+    });
 
-	$('#tohash').on('click', function(){
-		$('html, body').animate({scrollTop: $(this.hash).offset().top - 5}, 1000);
-		return false;
-	});
+    //监听快捷菜单点击
+    $('.short-menu .layui-field-box>div>div').click(function () {
+        var elem = this;
+        var url = $(elem).children('span').attr('data-url');
+        var id = $(elem).children('span').attr('data-id');
+        var title = $(elem).children('span').text();
 
-	// accordian
-	$('.accordion-toggle').on('click', function(){
-		$(this).closest('.panel-group').children().each(function(){
-		$(this).find('>.panel-heading').removeClass('active');
-		 });
+        if (url == undefined) return;
 
-	 	$(this).closest('.panel-heading').toggleClass('active');
-	});
+        var tabTitleDiv = $('.layui-tab[lay-filter=\'tab\']').children('.layui-tab-title');
+        var exist = tabTitleDiv.find('li[lay-id=' + id + ']');
+        if (exist.length > 0) {
+            //切换到指定索引的卡片
+            element.tabChange('tab', id);
+        } else {
+            var index = layer.load(1);
+            //由于Ajax调用本地静态页面存在跨域问题，这里用iframe
+            setTimeout(function () {
+                //模拟菜单加载
+                layer.close(index);
+                element.tabAdd('tab', { title: title, content: '<iframe src="' + url + '" style="width:100%;height:100%;border:none;outline:none;"></iframe>', id: id });
+                //切换到指定索引的卡片
+                element.tabChange('tab', id);
+            }, 500);
+        }
+        $('div.short-menu').slideUp('fast');
+    });
 
-	//Slider
-	$(document).ready(function() {
-		var time = 7; // time in seconds
+    //监听侧边导航开关
+    form.on('switch(sidenav)', function (data) {
+        if (data.elem.checked) {
+            showSideNav();
+            layer.msg('这个开关是layui的开关改编的');
+        } else {
+            hideSideNav();
+        }
+    });
 
-	 	var $progressBar,
-	      $bar,
-	      $elem,
-	      isPause,
-	      tick,
-	      percentTime;
+    //收起侧边导航点击事件
+    $('.layui-side-hide').click(function () {
+        hideSideNav();
+        $('input[lay-filter=sidenav]').siblings('.layui-form-switch').removeClass('layui-form-onswitch');
+        $('input[lay-filter=sidenav]').prop("checked", false);
+    });
 
-	    //Init the carousel
-	    $("#main-slider").find('.owl-carousel').owlCarousel({
-	      slideSpeed : 500,
-	      paginationSpeed : 500,
-	      singleItem : true,
-	      navigation : true,
-			navigationText: [
-			"<i class='fa fa-angle-left'></i>",
-			"<i class='fa fa-angle-right'></i>"
-			],
-	      afterInit : progressBar,
-	      afterMove : moved,
-	      startDragging : pauseOnDragging,
-	      //autoHeight : true,
-	      transitionStyle : "fadeUp"
-	    });
+    //鼠标靠左展开侧边导航
+    $(document).mousemove(function (e) {
+        if (e.pageX == 0) {
+            showSideNav();
+            $('input[lay-filter=sidenav]').siblings('.layui-form-switch').addClass('layui-form-onswitch');
+            $('input[lay-filter=sidenav]').prop("checked", true);
+        }
+    });
 
-	    //Init progressBar where elem is $("#owl-demo")
-	    function progressBar(elem){
-	      $elem = elem;
-	      //build progress bar elements
-	      buildProgressBar();
-	      //start counting
-	      start();
-	    }
+    var ishide = false;
+    //隐藏侧边导航
+    function hideSideNav() {
+        if (!ishide) {
+            $('.layui-side').animate({ left: '-200px' });
+            $('.layui-side-hide').animate({ left: '-200px' });
+            $('.layui-body').animate({ left: '0px' });
+            $('.layui-footer').animate({ left: '0px' });
+            var tishi = layer.msg('鼠标靠左自动显示菜单', { time: 1500 });
+            layer.style(tishi, {
+                top: 'auto',
+                bottom: '50px'
+            });
+            ishide = true;
+        }
+    }
+    //显示侧边导航
+    function showSideNav() {
+        if (ishide) {
+            $('.layui-side').animate({ left: '0px' });
+            $('.layui-side-hide').animate({ left: '0px' });
+            $('.layui-body').animate({ left: '200px' });
+            $('.layui-footer').animate({ left: '200px' });
+            ishide = false;
+        }
+    }
+    $('#updatePassword').click(function () {
+        var index = layer.load(1);
+        setTimeout(function () {
+            layer.close(index);
+            common.frame_show('修改密码','/admin/update',$(window).width()*0.6,$(window).height()*0.6);
+            // layer.msg('打开添加窗口');
+        }, 500);
+    });
 
-	    //create div#progressBar and div#bar then append to $(".owl-carousel")
-	    function buildProgressBar(){
-	      $progressBar = $("<div>",{
-	        id:"progressBar"
-	      });
-	      $bar = $("<div>",{
-	        id:"bar"
-	      });
-	      $progressBar.append($bar).appendTo($elem);
-	    }
-
-	    function start() {
-	      //reset timer
-	      percentTime = 0;
-	      isPause = false;
-	      //run interval every 0.01 second
-	      tick = setInterval(interval, 10);
-	    };
-
-	    function interval() {
-	      if(isPause === false){
-	        percentTime += 1 / time;
-	        $bar.css({
-	           width: percentTime+"%"
-	         });
-	        //if percentTime is equal or greater than 100
-	        if(percentTime >= 100){
-	          //slide to next item
-	          $elem.trigger('owl.next')
-	        }
-	      }
-	    }
-
-	    //pause while dragging
-	    function pauseOnDragging(){
-	      isPause = true;
-	    }
-
-	    //moved callback
-	    function moved(){
-	      //clear interval
-	      clearTimeout(tick);
-	      //start again
-	      start();
-	    }
-	});
-
-	//Initiat WOW JS
-	new WOW().init();
-	//smoothScroll
-	smoothScroll.init();
-
-	// portfolio filter
-	$(window).load(function(){'use strict';
-		var $portfolio_selectors = $('.portfolio-filter >li>a');
-		var $portfolio = $('.portfolio-items');
-		$portfolio.isotope({
-			itemSelector : '.portfolio-item',
-			layoutMode : 'fitRows'
-		});
-
-		$portfolio_selectors.on('click', function(){
-			$portfolio_selectors.removeClass('active');
-			$(this).addClass('active');
-			var selector = $(this).attr('data-filter');
-			$portfolio.isotope({ filter: selector });
-			return false;
-		});
-	});
-
-	$(document).ready(function() {
-		//Animated Progress
-		$('.progress-bar').bind('inview', function(event, visible, visiblePartX, visiblePartY) {
-			if (visible) {
-				$(this).css('width', $(this).data('width') + '%');
-				$(this).unbind('inview');
-			}
-		});
-
-		//Animated Number
-		$.fn.animateNumbers = function(stop, commas, duration, ease) {
-			return this.each(function() {
-				var $this = $(this);
-				var start = parseInt($this.text().replace(/,/g, ""));
-				commas = (commas === undefined) ? true : commas;
-				$({value: start}).animate({value: stop}, {
-					duration: duration == undefined ? 1000 : duration,
-					easing: ease == undefined ? "swing" : ease,
-					step: function() {
-						$this.text(Math.floor(this.value));
-						if (commas) { $this.text($this.text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")); }
-					},
-					complete: function() {
-						if (parseInt($this.text()) !== stop) {
-							$this.text(stop);
-							if (commas) { $this.text($this.text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,")); }
-						}
-					}
-				});
-			});
-		};
-
-		$('.animated-number').bind('inview', function(event, visible, visiblePartX, visiblePartY) {
-			var $this = $(this);
-			if (visible) {
-				$this.animateNumbers($this.data('digit'), false, $this.data('duration'));
-				$this.unbind('inview');
-			}
-		});
-	});
-
-	// Contact form
-	var form = $('#main-contact-form');
-	form.submit(function(event){
-		event.preventDefault();
-		var form_status = $('<div class="form_status"></div>');
-		$.ajax({
-			url: $(this).attr('action'),
-			beforeSend: function(){
-				form.prepend( form_status.html('<p><i class="fa fa-spinner fa-spin"></i> Email is sending...</p>').fadeIn() );
-			}
-		}).done(function(data){
-			form_status.html('<p class="text-success">Thank you for contact us. As early as possible  we will contact you</p>').delay(3000).fadeOut();
-		});
-	});
-
-	//Pretty Photo
-	$("a[rel^='prettyPhoto']").prettyPhoto({
-		social_tools: false
-	});
-
-	//Google Map
-	var latitude = $('#google-map').data('latitude');
-	var longitude = $('#google-map').data('longitude');
-	function initialize_map() {
-		var myLatlng = new google.maps.LatLng(latitude,longitude);
-		var mapOptions = {
-			zoom: 14,
-			scrollwheel: false,
-			center: myLatlng
-		};
-		var map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
-		var marker = new google.maps.Marker({
-			position: myLatlng,
-			map: map
-		});
-	}
-
+    exports('main', {});
 });

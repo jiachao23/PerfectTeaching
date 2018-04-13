@@ -56,6 +56,11 @@ public class Student  implements Serializable {
     @JsonBackReference
     private Set<Lab> labs;
 
+    @ManyToMany
+    @JoinTable(name = "stucourse", joinColumns = @JoinColumn(name = "s_id"), inverseJoinColumns = @JoinColumn(name = "course_id"))
+    @JsonBackReference
+    private Set<Lab> courses;
+
     public Integer getId() {
         return id;
     }

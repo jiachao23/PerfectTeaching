@@ -17,32 +17,35 @@
 </head>
 
 <body>
-    <div class="layui-carousel video_mask" id="login_carousel" >
-        <div carousel-item>
-            <div class="carousel_div1"></div>
-            <div class="carousel_div2"></div>
-            <div class="carousel_div3"></div>
-        </div>
-        <div class="login layui-anim layui-anim-up">
-            <h1>在线教育管理后台</h1>
-            <form class="layui-form" action="${ctx!}/login" method="post">
-                <div class="layui-form-item">
-                    <input type="text" name="name" lay-verify="required" placeholder="请输入账号" autocomplete="off"  value="" class="layui-input">
-                </div>
-                <div class="layui-form-item">
-                    <input type="password" name="password" lay-verify="required" placeholder="请输入密码" autocomplete="off" value="" class="layui-input">
-                </div>
+<div class="layui-carousel video_mask" id="login_carousel" >
+    <div carousel-item>
+        <div class="carousel_div1"></div>
+        <div class="carousel_div2"></div>
+        <div class="carousel_div3"></div>
+    </div>
+    <div class="login layui-anim layui-anim-up">
+        <h1>物联网虚拟仿真教学管理平台</h1>
+        <form class="layui-form" action="${ctx!}/login" method="post">
+            <div class="layui-form-item">
+                <input type="text" name="num" lay-verify="number" placeholder="请输入学号或者帐号" autocomplete="off"  value="" class="layui-input">
+            </div>
+            <div class="layui-form-item">
+                <input type="password" name="password" lay-verify="required" placeholder="请输入密码" autocomplete="off" value="" class="layui-input">
+            </div>
 
-                <div class="layui-input-block" style="margin-left: 0">
-                    <input type="radio" name="role" value="教师" title="教师">
-                    <input type="radio" name="role" value="管理员" title="管理员" checked>
-                </div>
-                <button class="layui-btn login_btn" lay-submit="" lay-filter="login">登陆系统</button>
-            </form>
-
-        </div>
+            <div class="layui-input-block" style="margin-left: 0">
+                <select name="role" lay-verify="">
+                    <option value="">请选择一个角色</option>
+                    <option value="student">教师</option>
+                    <option value="admin">管理员</option>
+                </select>
+            </div>
+            <button class="layui-btn login_btn" lay-submit="" lay-filter="login">登陆系统</button>
+        </form>
 
     </div>
+
+</div>
 
 </body>
 
@@ -50,10 +53,9 @@
 <script>
     layui.config({
         base : "${ctx!}/js/"
-    }).use(['form','layer','jquery','common','carousel', 'element'], function () {
+    }).use(['form','layer','jquery','carousel', 'element'], function () {
         var $ = layui.jquery,
                 form = layui.form,
-                common = layui.common,
                 carousel = layui.carousel,
                 layer = layui.layer;
 

@@ -75,3 +75,6 @@ body {
 .login_btn {
     width: 100%;
 }
+.layui-form-select{
+    margin-bottom: 15px;
+}

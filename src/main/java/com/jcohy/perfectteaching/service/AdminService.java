@@ -39,7 +39,11 @@ public interface AdminService {
      */
     List<Admin> findAll();
 
-
+    /**
+     *  查询
+     * @return
+     */
+    Admin findByNum(Integer num);
     /**
      * 根据ID查询
      * @param id
@@ -76,9 +80,6 @@ public interface AdminService {
     /**
      * 修改用户密码
      * @param user
-     * @param oldpassword
-     * @param password1
-     * @param password2
      */
-    void updatePassword(Admin user, String oldpassword, String password1, String password2);
+    void updatePassword(Admin user);
 }
