@@ -36,7 +36,7 @@
             <div class="layui-input-block" style="margin-left: 0">
                 <select name="role" lay-verify="">
                     <option value="">请选择一个角色</option>
-                    <option value="student">教师</option>
+                    <option value="teacher">教师</option>
                     <option value="admin">管理员</option>
                 </select>
             </div>

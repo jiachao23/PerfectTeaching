@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> - 学生信息</title>
+    <title> - 课程信息</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
 
@@ -30,44 +30,31 @@
                 <form id="form1" class="layui-form "  lay-filter="form">
 
                     <div class="layui-form-item">
-                        <input type="hidden" name="id"  value="${(project.id)!}" >
+                        <input type="hidden" name="id"  value="${(course.id)!}" >
                     </div>
-
+                    <div class="layui-form-item">
+                        <input type="hidden" name="teacher"  value="${Session.user.id?c}" >
+                    </div>
                     <div class="layui-form-item" style="margin-top: 10px">
-                        <label class="layui-form-label">项目名</label>
+                        <label class="layui-form-label">课程编号</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="num" lay-verify="number"  placeholder="请输入项目名" value="${project.name}"
+                            <input type="text" name="num" lay-verify="number"  placeholder="请输入课程编号" value="${project.name}"
                                    autocomplete="off" class="layui-input ">
                         </div>
                     </div>
 
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">项目来源</label>
+                    <div class="layui-form-item" style="margin-top: 10px">
+                        <label class="layui-form-label">课程主题</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="proResource" lay-verify="required" placeholder="请输入项目来源" value="${project.proResource}"
-                                   autocomplete="off" class="layui-input">
+                            <input type="text" name="name" lay-verify="number"  placeholder="请输入课程主题" value="${project.name}"
+                                   autocomplete="off" class="layui-input ">
                         </div>
                     </div>
 
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">经费来源</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="moneyResource" lay-verify="required" placeholder="请输入经费来源" value="${project.moneyResource}"
-                                   autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">指导老师</label>
-                        <div class="layui-input-inline">
-                            <select name="teacher" lay-filter="teacher">
-                                <option value="">请选择指导老师</option>
-                            <#list teachers as x>
-                                <option value="${x.id}"
-                                    <#if (project.teacher.num == x.name)> selected="selected" </#if>
-                                >${x.name}</option>
-                            </#list>
-                            </select>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">课程内容</label>
+                        <div class="layui-input-block">
+                            <textarea name="content" placeholder="请输入内容" class="layui-textarea"></textarea>
                         </div>
                     </div>
 
@@ -75,9 +62,9 @@
                         <label class="layui-form-label">上传</label>
                         <div class="layui-input-block">
                             <button type="button" class="layui-btn" id="upload">
-                                <i class="layui-icon">&#xe67c;</i>创业项目申请书
+                                <i class="layui-icon">&#xe67c;</i>上传课程资料
                             </button>
-                            <input type="hidden" name="uploadUrl">
+                            <input type="hidden" name="book">
                         </div>
                     </div>
 
@@ -97,7 +84,7 @@
 <script type="text/javascript">
     layui.config({
         base: '${ctx}/js/'
-    }).use('teacher/form');
+    }).use('teacher/course/form');
 </script>
 </body>
 

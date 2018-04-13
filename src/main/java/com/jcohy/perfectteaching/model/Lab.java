@@ -36,18 +36,40 @@ public class Lab implements Serializable{
     private Integer status;
     //开始日期
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "start")
-    private Date satrt;
+    private Date start;
     //结束日期
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "end")
     private Date end;
+
+    @OneToOne
+    @JoinColumn(name = "book_id")
+    private Book book;
+
     //对应的测试题
     @OneToOne
     @JoinColumn(name = "test_id")
     private Test test;
+    @OneToOne
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
+        this.book = book;
+    }
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "labs")
     //NotFound : 意思是找不到引用的外键数据时忽略，NotFound默认是exception
@@ -94,12 +116,12 @@ public class Lab implements Serializable{
         this.status = status;
     }
 
-    public Date getSatrt() {
-        return satrt;
+    public Date getStart() {
+        return start;
     }
 
-    public void setSatrt(Date satrt) {
-        this.satrt = satrt;
+    public void setStart(Date start) {
+        this.start = start;
     }
 
     public Date getEnd() {

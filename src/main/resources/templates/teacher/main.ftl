@@ -3,7 +3,7 @@
 <html >
 <head>
     <meta charset="utf-8" />
-    <title>双创项目信息管理系统</title>
+    <title>物联网虚拟仿真教学管理平台</title>
     <link rel="shortcut icon" href="${ctx}/images/jcohy.png" type="image/x-icon">
     <!-- layui.css -->
     <link href="${ctx!}/js/plugins/layui/css/layui.css" rel="stylesheet" />
@@ -24,7 +24,7 @@
                     <a class="ht-user-name">${role}</a>
                 </div>
             </div>
-            <span class="sys-title">双创项目信息管理系统</span>
+            <span class="sys-title">物联网虚拟仿真教学管理平台</span>
             <ul class="ht-nav">
                 <li class="ht-nav-item">
                     <a id="updatePassword"><i class="fa fa-power-off fa-fw"></i>修改密码</a>
@@ -46,18 +46,19 @@
                     </li>
 
                     <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="fa fa-user"></i>项目管理</a>
+                        <a href="javascript:;"><i class="fa fa-user"></i>实验管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;" data-url="${ctx!}/teacher/index" data-id="1">我的项目</a></dd>
-                            <dd><a href="javascript:;" data-url="${ctx!}/project/history" data-id="2">往年项目查看</a></dd>
+                            <dd><a href="javascript:;" data-url="${ctx!}/teacher/lab/index" data-id="1">实验管理</a></dd>
+                            <dd><a href="javascript:;" data-url="${ctx!}/teacher/course/index" data-id="2">课程管理</a></dd>
+                            <dd><a href="javascript:;" data-url="${ctx!}/teacher/resource/index" data-id="3">资料管理</a></dd>
                         </dl>
                     </li>
 
                     <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="fa fa-file-text"></i>项目管理</a>
+                        <a href="javascript:;"><i class="fa fa-file-text"></i>信息管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;" data-url="${ctx!}/admin/lab/index" data-id="3">实验计划</a></dd>
-                            <dd><a href="javascript:;">黑名单管理</a></dd>
+                            <dd><a href="javascript:;" data-url="${ctx!}/teacher/grade/index" data-id="3">成绩管理</a></dd>
+                            <dd><a href="javascript:;" data-url="${ctx!}/teacher/report/index" data-id="3">报告管理</a></dd>
                         </dl>
                     </li>
                 </ul>
@@ -76,7 +77,7 @@
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
                         <p style="padding: 10px 15px; margin-bottom: 20px; margin-top: 10px; border:1px solid #ddd;display:inline-block;">
-                            双创项目信息管理系统
+                            物联网虚拟仿真教学管理平台
                             <span style="padding-left:1em;">用户帐号：${Session.user.num?c}</span>
                             <span style="padding-left:1em;">用户姓名：${Session.user.name}</span>
                             <span style="padding-left:1em;">角色：${Session.role}</span>
@@ -87,7 +88,7 @@
         </div>
         <!--底部信息-->
         <div class="layui-footer">
-            <p style="line-height:44px;text-align:center;">Copyright © 2017 - Scis. All Rights Reserved</p>
+            <p style="line-height:44px;text-align:center;">Copyright © 2017 - PT. All Rights Reserved</p>
         </div>
 
     <script src="${ctx!}/js/plugins/layui/layui.js"></script>

@@ -4,19 +4,19 @@
         common = layui.common,
         table  = layui.table ;
     table.render({
-        elem: '#expert'
+        elem: '#course'
         ,height: 'full-200'
         ,method:'GET'
-        ,url: '/admin/expert/list' //数据接口
+        ,url: '/teacher/course/list' //数据接口
         ,page: true //开启分页
         ,cols: [[ //表头
             {type: 'checkbox', align:'center',unresize:true}
-            ,{field: 'num', align:'center', title: '帐号',unresize:true}
-            ,{field: 'name', align:'center', title: '姓名',unresize:true}
-            ,{field: 'sex', align:'center', title: '性别',unresize:true}
-            ,{field: 'phone', align:'center', title: '电话',unresize:true}
-            ,{field: 'address', title: '地址',unresize:true}
-            ,{field: 'resume', title: '简介',unresize:true}
+            ,{field: 'num', align:'center', title: '课程编号',unresize:true}
+            ,{field: 'name', align:'center', title: '课程主题',unresize:true}
+            ,{field: 'content', align:'center', title: '课程内容',unresize:true}
+            ,{field: 'satrt', align:'center', title: '开始时间',unresize:true}
+            ,{field: 'end', align:'center', title: '结束时间',unresize:true}
+            ,{field: 'teacher', title: '指导老师',unresize:true,templet: '<div>{{d.teacher.name}}</div>'}
             ,{fixed: 'right',  title:'操作',align:'center', toolbar: '#operator',unresize:true}
         ]]
     });
@@ -27,16 +27,16 @@
         if(obj.event === 'del'){
             del(data.id);
         } else if(obj.event === 'edit'){
-            common.frame_show('编辑','/admin/expert/form?id='+data.id);
+            common.frame_show('编辑','/teacher/course/form?id='+data.id);
         }
     });
 
     //添加数据
-    $('#addExpert').click(function () {
+    $('#addCourse').click(function () {
         var index = layer.load(1);
         setTimeout(function () {
             layer.close(index);
-            common.frame_show('分类添加','/admin/expert/form');
+            common.frame_show('分类添加','/teacher/course/form');
             // layer.msg('打开添加窗口');
         }, 500);
     });
@@ -59,7 +59,7 @@
             });
         },
         editData: function (id) {
-            common.frame_show('分类编辑','/admin/expert/form?id='+id);
+            common.frame_show('分类编辑','/teacher/course/form?id='+id);
         }
     };
     function del(id) {
@@ -67,12 +67,12 @@
             $.ajax({
                 type: "DELETE",
                 dataType: "json",
-                url: "/admin/expert/" + id + "/del",
+                url: "/teacher/course/" + id + "/del",
                 success: function (ret) {
                     if (ret.isOk) {
                         layer.msg("操作成功", {time: 2000}, function () {
                             layer.close(index);
-                            window.location.href = "/admin/expert/index";
+                            window.location.href = "/teacher/course/index";
                         });
                     } else {
                         layer.msg(ret.msg, {time: 2000});
@@ -81,5 +81,5 @@
             });
         });
     }
-    exports('admin/expert/index', datalist);
+    exports('teacher/course/index', datalist);
 });

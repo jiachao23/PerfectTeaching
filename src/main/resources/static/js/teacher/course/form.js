@@ -11,7 +11,7 @@
                 return "名称必须1到00位"
             }
         },
-        description:function (value) {
+        content:function (value) {
             if (value.length <= 1 || value.length > 100) {
                 return "描述必须2到00位"
             }
@@ -24,11 +24,11 @@
         elem: '#upload' ,//绑定元素
         url: '/upload',
         accept: 'file',
+        size:0,
         before: function(input) {
             console.log($(input));
             box = $("#upload").parent('.layui-input-block');
             console.log(box);
-            // console.log($(input).parent('.layui-input-block'));
             if (box.next('div').length > 0) {
                 box.next('div').html('<div class="imgbox"><p>上传中...</p></div>');
             } else {
@@ -37,26 +37,25 @@
         },
         done: function(res) {
             if (res.isOk) {
-                box.next('div').find('div.imgbox').html('<img src="' + res.url + '" alt="..." class="img-thumbnail">');
-                box.find('input[type=hidden]').val(res.url);
+                box.next('div').find('div.imgbox').html('<p>下载地址：<a href="' + res.book.url + '">' + res.book.name + '</a></p>');
+                box.find('input[type=hidden]').val(res.book.id);
             } else {
                 box.next('div').find('p').html('上传失败...')
             }
         }
     });
-
     form.on('submit(add)', function (data) {
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: "/teacher/save",
+            url: "/teacher/course/save",
             data: data.field,
             success: function(ret){
                 if(ret.isOk){
                     layer.msg("操作成功", {time: 2000},function(){
                         var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
                         parent.layer.close(index);
-                        window.parent.location.href="/teacher/index";
+                        window.parent.location.href="/teacher/course/index";
                     });
                 }else{
                     layer.msg(ret.msg, {time: 2000});
@@ -66,6 +65,6 @@
         return false;
     });
 
-    exports('teacher/form', {});
+    exports('teacher/course/form', {});
 });
 

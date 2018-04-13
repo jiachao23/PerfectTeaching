@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by jiac on 2018/4/13.
@@ -36,6 +37,20 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course saveOrUpdate(Course course) {
+        Course db = new Course();
+        if(course.getId() != null){
+            db = courseRepository.findById(course.getId()).get();
+            if(course.getNum() != null) db.setNum(course.getNum());
+            if(course.getName() != null) db.setName(course.getName());
+            if(course.getBook() != null) db.setBook(course.getBook());
+            if(course.getContent() != null) db.setContent(course.getContent());
+            if(course.getEnd() != null) db.setEnd(course.getEnd());
+            if(course.getStart() != null) db.setStart(course.getStart());
+            if(course.getTeacher() != null) db.setTeacher(course.getTeacher());
+        }else{
+            course.setStatus(0);
+            db = course;
+        }
         return courseRepository.save(course);
     }
 

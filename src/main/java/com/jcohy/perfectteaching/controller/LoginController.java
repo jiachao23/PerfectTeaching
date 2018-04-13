@@ -3,10 +3,8 @@ package com.jcohy.perfectteaching.controller;
 import com.jcohy.lang.StringUtils;
 import com.jcohy.perfectteaching.common.JsonResult;
 import com.jcohy.perfectteaching.model.Admin;
-import com.jcohy.perfectteaching.model.Student;
 import com.jcohy.perfectteaching.model.Teacher;
 import com.jcohy.perfectteaching.service.AdminService;
-import com.jcohy.perfectteaching.service.StudentService;
 import com.jcohy.perfectteaching.service.TeacherService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,9 +29,6 @@ public class LoginController {
     private AdminService adminService;
 
     @Autowired
-    private StudentService studentService;
-
-    @Autowired
     private TeacherService teacherService;
 
 
@@ -55,17 +50,7 @@ public class LoginController {
             HttpSession session = request.getSession();
             session.setAttribute("role",role);
             logger.error("name:{}  password:{}  type:{}",num,password,role);
-            if(StringUtils.trim(role).equals("student")){
-                Student login = studentService.login(num, password);
-                if(login == null){
-                    return JsonResult.fail("登录失败,用户名不存在");
-                }
-                if(!login.getPassword().equals(password)){
-                    return JsonResult.fail("登录失败,用户名账号密码不匹配");
-                }
-                session.setAttribute("user",login);
-                return JsonResult.ok().set("returnUrl", "/student/main");
-            }else if(StringUtils.trim(role).equals("teacher")){
+            if(StringUtils.trim(role).equals("teacher")){
                 Teacher login = teacherService.login(num, password);
                 if(login == null){
                     return JsonResult.fail("登录失败,用户名不存在");
@@ -101,8 +86,7 @@ public class LoginController {
      */
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response){
-
-        return "redirect:/admin";
+        return "redirect:/";
     }
 
 
@@ -121,14 +105,7 @@ public class LoginController {
         if(!newPassword.equals(rePassword)){
             return JsonResult.fail("两次输入密码不一致");
         }
-        if(role.equals("student")){
-            Student dbUser = studentService.findByNum(num);
-            if(!dbUser.getPassword().equals(oldPassword)){
-                return JsonResult.fail("旧密码不正确");
-            }
-            dbUser.setPassword(newPassword);
-            studentService.updatePassword(dbUser);
-        }else if(role.equals("teacher")){
+        if(role.equals("teacher")){
             Teacher dbUser = teacherService.findByNum(num);
             if(!dbUser.getPassword().equals(oldPassword)){
                 return JsonResult.fail("旧密码不正确");

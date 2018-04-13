@@ -27,7 +27,7 @@
 <body>
 
 <fieldset id="dataList" class="layui-elem-field layui-field-title sys-list-field">
-    <legend style="text-align:center;">我的项目</legend>
+    <legend style="text-align:center;">课程管理</legend>
     <button class="layui-btn" style="position: relative;float: right;right: 100px;" onclick="javascript:location.replace(location.href)">
         <i class="layui-icon">&#x1002;</i>
     </button>
@@ -43,7 +43,7 @@
     <div class="layui-field-box">
         <div id="dataContent" class="">
 
-            <table class="layui-hide" id="teacher" lay-filter="table"></table>
+            <table class="layui-hide" id="course" lay-filter="table"></table>
             <script type="text/html" id="operator">
                 <a class="layui-btn" lay-event="edit">编辑</a>
                 <a class="layui-btn layui-btn-danger " lay-event="del">删除</a>
@@ -51,16 +51,16 @@
             <script type="text/html" id="status">
                 <form class="layui-form" action="">
                     <div class="layui-form-item" style="margin:0;">
-                        {{#  if(d.estatus == 1){ }}
-                        <input type="checkbox" name="isTop" title="专家审核" value="{{d.id}}" lay-filter="estatus" checked disabled/>
-                        {{#  } else { }}
-                        <input type="checkbox" name="isTop" title="专家审核" value="{{d.id}}" lay-filter="estatus" disabled/>
-                        {{#  } }}
-                        {{#  if(d.astatus == 1){ }}
-                        <input type="checkbox" name="isCommend" title="管理员审核" value="{{d.id}}" lay-filter="astatus" checked disabled/>
-                        {{#  } else { }}
-                        <input type="checkbox" name="isCommend" title="管理员审核" value="{{d.id}}" lay-filter="astatus" disabled/>
-                        {{#  } }}
+                        <#--{{#  if(d.estatus == 1){ }}-->
+                        <#--<input type="checkbox" name="isTop" title="专家审核" value="{{d.id}}" lay-filter="estatus" checked disabled/>-->
+                        <#--{{#  } else { }}-->
+                        <#--<input type="checkbox" name="isTop" title="专家审核" value="{{d.id}}" lay-filter="estatus" disabled/>-->
+                        <#--{{#  } }}-->
+                        <#--{{#  if(d.astatus == 1){ }}-->
+                        <#--<input type="checkbox" name="isCommend" title="管理员审核" value="{{d.id}}" lay-filter="astatus" checked disabled/>-->
+                        <#--{{#  } else { }}-->
+                        <#--<input type="checkbox" name="isCommend" title="管理员审核" value="{{d.id}}" lay-filter="astatus" disabled/>-->
+                        <#--{{#  } }}-->
 
                     </div>
                 </form>
@@ -76,7 +76,7 @@
 <script type="text/javascript">
     layui.config({
         base: '${ctx}/js/'
-    }).use('teacher/index');
+    }).use('teacher/course/index');
 </script>
 </body>
 </html>

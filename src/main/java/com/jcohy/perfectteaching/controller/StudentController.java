@@ -59,7 +59,6 @@ public class StudentController {
             if(num == null || StringUtils.isEmpty(password)){
                 return JsonResult.fail("用户名或者密码不能为空");
             }
-
             login = studentService.login(num, password);
 
             if(login == null){
