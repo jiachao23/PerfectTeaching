@@ -4,10 +4,10 @@ layui.define([ 'layer',  'table','common'], function (exports) {
         common = layui.common,
         table  = layui.table ;
     table.render({
-        elem: '#course'
+        elem: '#lab'
         ,height: 'full-200'
         ,method:'GET'
-        ,url: '/teacher/course/list' //数据接口
+        ,url: '/teacher/lab/list' //数据接口
         ,page: true //开启分页
         ,cols: [[ //表头
             {type: 'checkbox', align:'center',unresize:true}
@@ -27,7 +27,7 @@ layui.define([ 'layer',  'table','common'], function (exports) {
         if(obj.event === 'del'){
             del(data.id);
         } else if(obj.event === 'edit'){
-            common.frame_show('编辑','/teacher/course/form?id='+data.id);
+            common.frame_show('编辑','/teacher/lab/form?id='+data.id);
         }
     });
 
@@ -36,7 +36,7 @@ layui.define([ 'layer',  'table','common'], function (exports) {
         var index = layer.load(1);
         setTimeout(function () {
             layer.close(index);
-            common.frame_show('添加','/teacher/course/form');
+            common.frame_show('添加','/teacher/lab/form');
             // layer.msg('打开添加窗口');
         }, 500);
     });
@@ -54,7 +54,7 @@ layui.define([ 'layer',  'table','common'], function (exports) {
             });
         },
         editData: function (id) {
-            common.frame_show('编辑','/teacher/course/form?id='+id);
+            common.frame_show('编辑','/teacher/lab/form?id='+id);
         }
     };
     function del(id) {
@@ -62,12 +62,12 @@ layui.define([ 'layer',  'table','common'], function (exports) {
             $.ajax({
                 type: "DELETE",
                 dataType: "json",
-                url: "/teacher/course/" + id + "/del",
+                url: "/teacher/lab/" + id + "/del",
                 success: function (ret) {
                     if (ret.isOk) {
                         layer.msg("操作成功", {time: 2000}, function () {
                             layer.close(index);
-                            window.location.href = "/teacher/course/index";
+                            window.location.href = "/teacher/lab/index";
                         });
                     } else {
                         layer.msg(ret.msg, {time: 2000});
@@ -76,5 +76,5 @@ layui.define([ 'layer',  'table','common'], function (exports) {
             });
         });
     }
-    exports('teacher/course/index', datalist);
+    exports('teacher/lab/index', datalist);
 });

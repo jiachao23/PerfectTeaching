@@ -27,7 +27,7 @@
 <body>
 
 <fieldset id="dataList" class="layui-elem-field layui-field-title sys-list-field">
-    <legend style="text-align:center;">课程管理</legend>
+    <legend style="text-align:center;">实验管理</legend>
     <button class="layui-btn" style="position: relative;float: right;right: 100px;" onclick="javascript:location.replace(location.href)">
         <i class="layui-icon">&#x1002;</i>
     </button>
@@ -43,7 +43,7 @@
     <div class="layui-field-box">
         <div id="dataContent" class="">
 
-            <table class="layui-hide" id="course" lay-filter="table"></table>
+            <table class="layui-hide" id="lab" lay-filter="table"></table>
             <script type="text/html" id="operator">
                 <a class="layui-btn" lay-event="edit">编辑</a>
                 <a class="layui-btn layui-btn-danger " lay-event="del">删除</a>
@@ -58,7 +58,7 @@
 <script type="text/javascript">
     layui.config({
         base: '${ctx}/js/'
-    }).use('teacher/course/index');
+    }).use('teacher/lab/index');
 </script>
 </body>
 </html>

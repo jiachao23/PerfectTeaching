@@ -48,8 +48,8 @@ public class CourseController extends BaseController{
         List<Teacher> teachers = teacherService.findAll();
         map.put("teacher",teachers);
         if(id != null){
-            Course teacher = courseService.findById(id);
-            map.put("teacher",teacher);
+            Course course = courseService.findById(id);
+            map.put("course",course);
         }
         return "teacher/course/form";
     }
@@ -66,7 +66,7 @@ public class CourseController extends BaseController{
         return JsonResult.ok();
     }
 
-    @DeleteMapping("{id}/del")
+    @DeleteMapping("/{id}/del")
     @ResponseBody
     public JsonResult del(@PathVariable("id") Integer id){
         try {
