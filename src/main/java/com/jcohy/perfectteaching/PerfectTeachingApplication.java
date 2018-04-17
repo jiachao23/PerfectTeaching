@@ -41,7 +41,9 @@ public class PerfectTeachingApplication extends WebMvcConfigurerAdapter {
         registry.addViewController("/teacher/index").setViewName("/student/index");
         registry.addViewController("/teacher/course/index").setViewName("/teacher/course/index");
         registry.addViewController("/teacher/lab/index").setViewName("/teacher/lab/index");
+        registry.addViewController("/teacher/resource/index").setViewName("/teacher/resource/index");
         registry.addViewController("/teacher/report/index").setViewName("/teacher/report/index");
+        registry.addViewController("/teacher/grade/index").setViewName("/teacher/grade/index");
 //        registry.addViewController("/teacher/course/index").setViewName("/teacher/course/index");
         //管理员主页，从登录
         registry.addViewController("/admin/main").setViewName("/admin/main");

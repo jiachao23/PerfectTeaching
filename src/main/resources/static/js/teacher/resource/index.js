@@ -5,17 +5,17 @@ layui.define([ 'layer',  'table','common','util'], function (exports) {
         util = layui.util,
         table  = layui.table ;
     table.render({
-        elem: '#course'
+        elem: '#resource'
         ,height: 'full-200'
         ,method:'GET'
-        ,url: '/teacher/course/list' //数据接口
+        ,url: '/teacher/resource/list' //数据接口
         ,page: true //开启分页
         ,cols: [[ //表头
-            {field: 'num', align:'center', title: '课程编号',unresize:true}
-            ,{field: 'name', align:'center', title: '课程主题',unresize:true}
-            ,{field: 'content', align:'center', title: '课程内容',unresize:true}
-            ,{field: 'start', align:'center', title: '开始时间',templet: '<div>{{# if(d.start!=null){ }}{{ layui.util.toDateString(d.start) }}{{# } }}</div>'}
-            ,{field: 'end', align:'center', title: '结束时间',templet: '<div>{{# if(d.end!=null){ }}{{ layui.util.toDateString(d.end) }}{{# } }}</div>'}
+            {field: 'num', align:'center', title: '实验编号',unresize:true}
+            ,{field: 'name', align:'center', title: '实验主题',unresize:true}
+            ,{field: 'content', align:'center', title: '实验内容',unresize:true}
+            ,{field: 'start', align:'center', title: '开始时间',unresize:true,templet: '<div>{{# if(d.start!=null){ }}{{ layui.util.toDateString(d.start) }}{{# } }}</div>'}
+            ,{field: 'end', align:'center', title: '结束时间',unresize:true,templet: '<div>{{# if(d.end!=null){ }}{{ layui.util.toDateString(d.end) }}{{# } }}</div>'}
             ,{field: 'teacher', title: '指导老师',unresize:true,templet: '<div>{{d.teacher.name}}</div>'}
             ,{fixed: 'right',  title:'操作',align:'center', toolbar: '#operator',unresize:true}
         ]]
@@ -27,7 +27,7 @@ layui.define([ 'layer',  'table','common','util'], function (exports) {
         if(obj.event === 'del'){
             del(data.id);
         } else if(obj.event === 'edit'){
-            common.frame_show('编辑','/teacher/course/form?id='+data.id);
+            common.frame_show('编辑','/teacher/resource/form?id='+data.id);
         }
     });
 
@@ -36,7 +36,7 @@ layui.define([ 'layer',  'table','common','util'], function (exports) {
         var index = layer.load(1);
         setTimeout(function () {
             layer.close(index);
-            common.frame_show('添加','/teacher/course/form');
+            common.frame_show('添加','/teacher/resource/form');
             // layer.msg('打开添加窗口');
         }, 500);
     });
@@ -54,7 +54,7 @@ layui.define([ 'layer',  'table','common','util'], function (exports) {
             });
         },
         editData: function (id) {
-            common.frame_show('编辑','/teacher/course/form?id='+id);
+            common.frame_show('编辑','/teacher/resource/form?id='+id);
         }
     };
     function del(id) {
@@ -62,12 +62,12 @@ layui.define([ 'layer',  'table','common','util'], function (exports) {
             $.ajax({
                 type: "DELETE",
                 dataType: "json",
-                url: "/teacher/course/" + id + "/del",
+                url: "/teacher/resource/" + id + "/del",
                 success: function (ret) {
                     if (ret.isOk) {
                         layer.msg("操作成功", {time: 2000}, function () {
                             layer.close(index);
-                            window.location.href = "/teacher/course/index";
+                            window.location.href = "/teacher/resource/index";
                         });
                     } else {
                         layer.msg(ret.msg, {time: 2000});
@@ -76,5 +76,5 @@ layui.define([ 'layer',  'table','common','util'], function (exports) {
             });
         });
     }
-    exports('teacher/course/index', datalist);
+    exports('teacher/resource/index', datalist);
 });
