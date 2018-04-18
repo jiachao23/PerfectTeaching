@@ -67,4 +67,9 @@ public class LabServiceImpl implements LabService{
         }
         return labRepository.save(lab);
     }
+
+    @Override
+    public List<Lab> findByType(String Type) {
+        return labRepository.findByType(Type);
+    }
 }

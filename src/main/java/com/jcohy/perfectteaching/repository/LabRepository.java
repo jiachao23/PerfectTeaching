@@ -15,4 +15,5 @@ public interface LabRepository  extends JpaRepository<Lab,Integer> {
 
     Lab findLabByNum(Integer num);
 
+    List<Lab> findByType(String type);
 }

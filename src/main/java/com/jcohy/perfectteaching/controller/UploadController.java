@@ -60,6 +60,7 @@ public class UploadController {
         book.setUploadUrl(filePath);
         book.setStatus("1");
         Book book1 = bookService.saveOrUpdate(book);
+        System.out.println(book1.toString());
         return JsonResult.ok("book",book1);
     }
 

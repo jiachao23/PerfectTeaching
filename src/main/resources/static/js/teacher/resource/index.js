@@ -11,12 +11,10 @@ layui.define([ 'layer',  'table','common','util'], function (exports) {
         ,url: '/teacher/resource/list' //数据接口
         ,page: true //开启分页
         ,cols: [[ //表头
-            {field: 'num', align:'center', title: '实验编号',unresize:true}
-            ,{field: 'name', align:'center', title: '实验主题',unresize:true}
-            ,{field: 'content', align:'center', title: '实验内容',unresize:true}
-            ,{field: 'start', align:'center', title: '开始时间',unresize:true,templet: '<div>{{# if(d.start!=null){ }}{{ layui.util.toDateString(d.start) }}{{# } }}</div>'}
-            ,{field: 'end', align:'center', title: '结束时间',unresize:true,templet: '<div>{{# if(d.end!=null){ }}{{ layui.util.toDateString(d.end) }}{{# } }}</div>'}
-            ,{field: 'teacher', title: '指导老师',unresize:true,templet: '<div>{{d.teacher.name}}</div>'}
+            {field: 'num', align:'center', title: '课程/实验编号',unresize:true,templet: '<div>{{d.lab.num}}</div>'}
+            ,{field: 'labName', align:'center', title: '课程/实验名称',unresize:true,templet: '<div>{{d.lab.name}}</div>'}
+            ,{field: 'name', align:'center', title: '资料名称',unresize:true}
+            ,{field: 'downloadUrl', align:'center', title: '下载地址',unresize:true}
             ,{fixed: 'right',  title:'操作',align:'center', toolbar: '#operator',unresize:true}
         ]]
     });

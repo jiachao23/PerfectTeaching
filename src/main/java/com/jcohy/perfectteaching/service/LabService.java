@@ -62,4 +62,5 @@ public interface LabService {
      */
     Lab change(Integer id,String type);
 
+    List<Lab> findByType(String Type);
 }

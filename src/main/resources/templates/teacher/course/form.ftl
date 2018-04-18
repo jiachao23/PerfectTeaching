@@ -67,19 +67,20 @@
                             <input type="hidden" name="book">
                         </div>
                     </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">开始时间</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="start" value="${(allot.start)!}" class="layui-input" id="start" lay-verify="required">
-                        </div>
-                    </div>
 
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">结束时间</label>
-                        <div class="layui-input-inline">
-                            <input type="text" name="end" value="${(allot.end)!}" class="layui-input" id="end" lay-verify="required">
-                        </div>
-                    </div>
+                    <#--<div class="layui-form-item">-->
+                        <#--<label class="layui-form-label">开始时间</label>-->
+                        <#--<div class="layui-input-inline">-->
+                            <#--<input type="text" name="start" value="${(allot.start)!}" class="layui-input" id="start" lay-verify="required">-->
+                        <#--</div>-->
+                    <#--</div>-->
+
+                    <#--<div class="layui-form-item">-->
+                        <#--<label class="layui-form-label">结束时间</label>-->
+                        <#--<div class="layui-input-inline">-->
+                            <#--<input type="text" name="end" value="${(allot.end)!}" class="layui-input" id="end" lay-verify="required">-->
+                        <#--</div>-->
+                    <#--</div>-->
 
                     <div class="layui-form-item">
                         <button class="layui-btn" lay-submit lay-filter="add">立即提交</button>

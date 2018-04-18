@@ -34,18 +34,17 @@ public class Lab implements Serializable{
     //状态
     @Column(name = "status")
     private Integer status;
-    //开始日期
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @Column(name = "start")
-    private Date start;
-    //结束日期
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @Column(name = "end")
-    private Date end;
+    @Column(name = "type")
+    private String type;
 
-    @OneToOne
-    @JoinColumn(name = "book_id")
-    private Book book;
+//    //开始日期
+//    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    @Column(name = "start")
+//    private Date start;
+//    //结束日期
+//    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    @Column(name = "end")
+//    private Date end;
 
     //对应的测试题
     @OneToOne
@@ -63,12 +62,12 @@ public class Lab implements Serializable{
         this.teacher = teacher;
     }
 
-    public Book getBook() {
-        return book;
+    public String getType() {
+        return type;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setType(String type) {
+        this.type = type;
     }
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "labs")
@@ -115,22 +114,22 @@ public class Lab implements Serializable{
     public void setStatus(Integer status) {
         this.status = status;
     }
-
-    public Date getStart() {
-        return start;
-    }
-
-    public void setStart(Date start) {
-        this.start = start;
-    }
-
-    public Date getEnd() {
-        return end;
-    }
-
-    public void setEnd(Date end) {
-        this.end = end;
-    }
+//
+//    public Date getStart() {
+//        return start;
+//    }
+//
+//    public void setStart(Date start) {
+//        this.start = start;
+//    }
+//
+//    public Date getEnd() {
+//        return end;
+//    }
+//
+//    public void setEnd(Date end) {
+//        this.end = end;
+//    }
 
     public Test getTest() {
         return test;

@@ -59,9 +59,9 @@ public class PerfectTeachingApplication extends WebMvcConfigurerAdapter {
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
         //单个文件最大
-        factory.setMaxFileSize("102400KB"); //KB,MB
+        factory.setMaxFileSize("102400000KB"); //KB,MB
         /// 设置总上传数据总大小
-        factory.setMaxRequestSize("102400KB");
+        factory.setMaxRequestSize("102400000KB");
         return factory.createMultipartConfig();
     }
 }

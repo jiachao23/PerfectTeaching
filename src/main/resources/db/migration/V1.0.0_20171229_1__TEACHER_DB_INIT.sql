@@ -160,18 +160,21 @@ CREATE TABLE `lab` (
   `lab_name` varchar(50) DEFAULT NULL,
   `lab_content` varchar(50) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '状态',
-  `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `end` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `test_id` int(11) DEFAULT NULL,
+  `teacher_id` INT (11) DEFAULT NULL ,
+
   PRIMARY KEY (`id`),
   KEY `lab_test_id` (`test_id`),
+  KEY `lab_teacher_id` (`teacher_id`),
+  CONSTRAINT `lab_teacher_id` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`id`),
   CONSTRAINT `lab_test_id` FOREIGN KEY (`test_id`) REFERENCES `test` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -- ----------------------------
 -- Records of lab
 -- ----------------------------
-INSERT INTO `lab` VALUES ('1', '1', '1', '1', '0','2018-04-04 10:27:13', '2018-04-04 10:27:13', '1');
+INSERT INTO `lab` VALUES ('1', '1', '1', '1', '0', '1');
 
 
 

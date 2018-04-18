@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by jiac on 2018/4/3.
@@ -21,7 +22,7 @@ import java.util.List;
  * Description  :
  */
 @Controller
-@RequestMapping("/teacher/lab")
+@RequestMapping("/teacher/{type}")
 public class LabController extends BaseController{
 
 
@@ -33,14 +34,13 @@ public class LabController extends BaseController{
 
     @GetMapping("/list")
     @ResponseBody
-    public PageJson<Lab> all(ModelMap map){
-        PageRequest pageRequest = getPageRequest();
-        Page<Lab> labs = labService.findAll(pageRequest);
+    public PageJson<Lab> all(ModelMap map,@PathVariable String type){
+        List<Lab> labs = excute(type);
         PageJson<Lab> page = new PageJson<>();
         page.setCode(0);
         page.setMsg("成功");
-        page.setCount(labs.getContent().size());
-        page.setData(labs.getContent());
+        page.setCount(labs.size());
+        page.setData(labs);
         return page;
     }
 
@@ -59,6 +59,7 @@ public class LabController extends BaseController{
     @ResponseBody
     public JsonResult save(Lab lab){
         try {
+            lab.setStatus(0);
             labService.saveOrUpdate(lab);
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,5 +78,23 @@ public class LabController extends BaseController{
             return JsonResult.fail("删除失败");
         }
         return JsonResult.ok();
+    }
+
+    private List<Lab> excute(String type){
+        PageRequest request = getPageRequest();
+        int number = request.getPageNumber();
+        int size = request.getPageSize();
+        List<Lab> versions = filterSysVersion(type);
+        if(versions.size() >((number+1)*size)){
+            List<Lab> apps1 = versions.subList(0, size);
+            versions.clear();
+            versions.addAll(apps1);
+        }
+        return versions;
+    }
+
+    private List<Lab> filterSysVersion(String type){
+        List<Lab> allVersions = labService.findAll();
+        return allVersions.stream().filter(x -> x.getType().equals(type)).collect(Collectors.toList());
     }
 }

@@ -30,27 +30,15 @@
                 <form id="form1" class="layui-form "  lay-filter="form">
 
                     <div class="layui-form-item">
-                        <input type="hidden" name="id"  value="${(book.id)!}" >
-                    </div>
-                    <div class="layui-form-item">
                         <input type="hidden" name="teacher"  value="${(Session.user.id?c)!}" >
                     </div>
 
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">资料所属</label>
-                        <div class="layui-input-inline">
-                            <select name="type" lay-filter="type" lay-verify="required">
-                                <option value="">请选择类型</option>
-                                <option value="lab">实验</option>
-                                <option value="course">课程</option>
-                            </select>
-                        </div>
-                    </div>
+
 
                     <div class="layui-form-item" style="margin-top: 10px">
                         <label class="layui-form-label">课程/实验编号</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="num" lay-verify="number"  placeholder="请输入课程编号" value="${book.num}"
+                            <input type="text" name="num" lay-verify="number"  placeholder="请输入课程/实验编号" value="${book.lab.num}"
                                    autocomplete="off" class="layui-input ">
                         </div>
                     </div>
@@ -78,7 +66,7 @@
                             <button type="button" class="layui-btn" id="upload">
                                 <i class="layui-icon">&#xe67c;</i>上传课程资料
                             </button>
-                            <input type="hidden" name="book">
+                            <input type="hidden" name="id" value="${book.id}">
                         </div>
                     </div>
 

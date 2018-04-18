@@ -22,6 +22,17 @@ public class Book implements Serializable{
     private String downloadUrl;
     @Column(name = "status")
     private String status;
+    @OneToOne
+    @JoinColumn(name = "lab_id")
+    private Lab lab;
+
+    public Lab getLab() {
+        return lab;
+    }
+
+    public void setLab(Lab lab) {
+        this.lab = lab;
+    }
 
     public Integer getId() {
         return id;
@@ -71,6 +82,7 @@ public class Book implements Serializable{
         sb.append(", uploadUrl='").append(uploadUrl).append('\'');
         sb.append(", downloadUrl='").append(downloadUrl).append('\'');
         sb.append(", status='").append(status).append('\'');
+        sb.append(", lab=").append(lab);
         sb.append('}');
         return sb.toString();
     }
