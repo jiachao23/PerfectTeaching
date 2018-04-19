@@ -162,7 +162,6 @@ CREATE TABLE `lab` (
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '状态',
   `test_id` int(11) DEFAULT NULL,
   `teacher_id` INT (11) DEFAULT NULL ,
-
   PRIMARY KEY (`id`),
   KEY `lab_test_id` (`test_id`),
   KEY `lab_teacher_id` (`teacher_id`),
@@ -174,7 +173,7 @@ CREATE TABLE `lab` (
 -- ----------------------------
 -- Records of lab
 -- ----------------------------
-INSERT INTO `lab` VALUES ('1', '1', '1', '1', '0', '1');
+INSERT INTO `lab` VALUES ('1', '1', '1', '1', '0', '1','1');
 
 
 
