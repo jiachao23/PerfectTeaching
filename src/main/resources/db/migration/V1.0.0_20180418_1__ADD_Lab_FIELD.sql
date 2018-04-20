@@ -1,4 +1,0 @@
-
-
-
-ALTER TABLE `lab` ADD `type` VARCHAR (11) DEFAULT NULL ;

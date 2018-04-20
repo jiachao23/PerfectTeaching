@@ -45,19 +45,10 @@
                     </li>
 
                     <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="fa fa-user"></i>用户管理</a>
+                        <a href="javascript:;"><i class="fa fa-user"></i>实验课程管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;" data-url="${ctx!}/admin/student/index" data-id="1">学生信息管理</a></dd>
-                            <dd><a href="javascript:;" data-url="${ctx!}/admin/teacher/index" data-id="2">教师信息管理</a></dd>
-                            <dd><a href="javascript:;" data-url="${ctx!}/admin/expert/index" data-id="3">专家信息管理</a></dd>
-                        </dl>
-                    </li>
-
-                    <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="fa fa-file-text"></i>项目管理</a>
-                        <dl class="layui-nav-child">
-                            <dd><a href="javascript:;" data-url="${ctx!}/admin/allot/index" data-id="4">评审分配</a></dd>
-                            <dd><a href="javascript:;" data-url="${ctx!}/admin/project/index" data-id="5">项目审核</a></dd>
+                            <dd><a href="javascript:;" data-url="${ctx!}/admin/lab/index" data-id="1">实验课程审核</a></dd>
+                            <dd><a href="javascript:;" data-url="${ctx!}/admin/plan/index" data-id="2">实验课程计划</a></dd>
                         </dl>
                     </li>
                 </ul>

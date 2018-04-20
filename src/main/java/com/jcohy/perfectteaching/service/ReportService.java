@@ -1,6 +1,8 @@
 package com.jcohy.perfectteaching.service;
 
+import com.jcohy.perfectteaching.model.Lab;
 import com.jcohy.perfectteaching.model.Report;
+import com.jcohy.perfectteaching.model.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -54,4 +56,6 @@ public interface ReportService {
      * @return
      */
     Report commit(Integer studentId, Integer labsId, String result);
+
+    Report findByLabAndTeacher(Lab lab, Student student);
 }

@@ -79,4 +79,9 @@ public class RepostServiceImpl implements ReportService{
         return reportRepository.saveAndFlush(report);
     }
 
+    @Override
+    public Report findByLabAndTeacher(Lab lab, Student student) {
+        return reportRepository.findReportByLabAndAndStudent(lab,student);
+    }
+
 }

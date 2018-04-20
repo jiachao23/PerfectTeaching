@@ -27,14 +27,14 @@
 <body>
 
 <fieldset id="dataList" class="layui-elem-field layui-field-title sys-list-field">
-    <legend style="text-align:center;">实验管理</legend>
+    <legend style="text-align:center;">课程计划</legend>
     <button class="layui-btn" style="position: relative;float: right;right: 100px;" onclick="javascript:location.replace(location.href)">
         <i class="layui-icon">&#x1002;</i>
     </button>
     <div style="padding: 40px 0px 0px 80px;">
         <div class="layui-inline">
             <div class="layui-input-inline" style="width:auto">
-                <a id="addProject" class="layui-btn layui-btn-normal">添加</a>
+                <a id="addReport" class="layui-btn layui-btn-normal">添加</a>
             </div>
         </div>
     </div>
@@ -43,22 +43,10 @@
     <div class="layui-field-box">
         <div id="dataContent" class="">
 
-            <table class="layui-hide" id="lab" lay-filter="table"></table>
+            <table class="layui-hide" id="plan" lay-filter="table"></table>
             <script type="text/html" id="operator">
                 <a class="layui-btn" lay-event="edit">编辑</a>
                 <a class="layui-btn layui-btn-danger " lay-event="del">删除</a>
-            </script>
-            <script type="text/html" id="status">
-                <form class="layui-form" action="">
-                    <div class="layui-form-item" style="margin:0;">
-                        {{#  if(d.status == 1){ }}
-                        <input type="checkbox" name="status" title="老师审核" value="{{d.id}}" lay-skin="primary" lay-filter="status" checked disabled/>
-                        {{#  } else { }}
-                        <input type="checkbox" name="status" title="老师审核" value="{{d.id}}" lay-filter="status" lay-skin="primary" disabled/>
-                        {{#  } }}
-                    </div>
-                </form>
-                <#--<button class="layui-btn layui-btn-small layui-btn-normal" onclick="layui.datalist.editData({{d.id}})"><i class="layui-icon">&#xe642;</i></button>-->
             </script>
         </div>
     </div>
@@ -70,7 +58,7 @@
 <script type="text/javascript">
     layui.config({
         base: '${ctx}/js/'
-    }).use('teacher/lab/index');
+    }).use('admin/plan/index');
 </script>
 </body>
 </html>

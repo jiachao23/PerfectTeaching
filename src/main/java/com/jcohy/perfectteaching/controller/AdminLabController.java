@@ -12,17 +12,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Created by jiac on 2018/4/3.
+ * Created by jiac on 2018/4/20.
  * ClassName  : com.jcohy.perfectteaching.controller
  * Description  :
  */
+
 @Controller
-@RequestMapping("/teacher")
-public class LabController extends BaseController{
+@RequestMapping("/admin")
+public class AdminLabController extends BaseController{
 
 
     @Autowired
@@ -33,8 +35,8 @@ public class LabController extends BaseController{
 
     @GetMapping("/{type}/list")
     @ResponseBody
-    public PageJson<Lab> all(@SessionAttribute("user")Teacher teacher, ModelMap map,@PathVariable String type){
-        List<Lab> labs = excute(teacher,type);
+    public PageJson<Lab> all(@SessionAttribute("user")Teacher teacher, ModelMap map){
+        List<Lab> labs = excute();
         PageJson<Lab> page = new PageJson<>();
         page.setCode(0);
         page.setMsg("成功");
@@ -51,7 +53,7 @@ public class LabController extends BaseController{
             Lab lab = labService.findById(id);
             map.put("lab",lab);
         }
-        return "teacher/lab/form";
+        return "admin/lab/form";
     }
 
     @PostMapping("/save")
@@ -79,11 +81,22 @@ public class LabController extends BaseController{
         return JsonResult.ok();
     }
 
-    private List<Lab> excute(Teacher teacher,String type){
+    @GetMapping("/change")
+    public JsonResult change(@PathParam("id")Integer id, ModelMap map){
+        try {
+            labService.change(id,"status");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonResult.fail("修改失败");
+        }
+        return JsonResult.ok();
+    }
+
+    private List<Lab> excute(){
         PageRequest request = getPageRequest();
         int number = request.getPageNumber();
         int size = request.getPageSize();
-        List<Lab> versions = filterSysVersion(teacher,type);
+        List<Lab> versions = filterSysVersion();
         if(versions.size() >((number+1)*size)){
             List<Lab> apps1 = versions.subList(0, size);
             versions.clear();
@@ -92,8 +105,8 @@ public class LabController extends BaseController{
         return versions;
     }
 
-    private List<Lab> filterSysVersion(Teacher teacher,String type){
-        List<Lab> allVersions = labService.findByTeacher(teacher);
-        return allVersions.stream().filter(x -> x.getType().equals(type)).collect(Collectors.toList());
+    private List<Lab> filterSysVersion(){
+        List<Lab> allVersions = labService.findAll();
+        return allVersions;
     }
 }

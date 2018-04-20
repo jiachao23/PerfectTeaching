@@ -1,6 +1,7 @@
 package com.jcohy.perfectteaching.service;
 
 import com.jcohy.perfectteaching.model.Lab;
+import com.jcohy.perfectteaching.model.Teacher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -63,4 +64,6 @@ public interface LabService {
     Lab change(Integer id,String type);
 
     List<Lab> findByType(String Type);
+
+    List<Lab> findByTeacher(Teacher teacher);
 }

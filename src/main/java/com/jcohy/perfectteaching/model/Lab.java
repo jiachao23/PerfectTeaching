@@ -7,6 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -46,10 +47,6 @@ public class Lab implements Serializable{
 //    @Column(name = "end")
 //    private Date end;
 
-    //对应的测试题
-    @OneToOne
-    @JoinColumn(name = "test_id")
-    private Test test;
     @OneToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
@@ -73,7 +70,7 @@ public class Lab implements Serializable{
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "labs")
     //NotFound : 意思是找不到引用的外键数据时忽略，NotFound默认是exception
     @NotFound(action = NotFoundAction.IGNORE)
-    private Set<Student> Student;
+    private List<Student> Student;
 
     public Integer getId() {
         return id;
@@ -131,19 +128,19 @@ public class Lab implements Serializable{
 //        this.end = end;
 //    }
 
-    public Test getTest() {
-        return test;
-    }
+//    public Test getTest() {
+//        return test;
+//    }
+//
+//    public void setTest(Test test) {
+//        this.test = test;
+//    }
 
-    public void setTest(Test test) {
-        this.test = test;
-    }
-
-    public Set<Student> getStudent() {
+    public List<Student> getStudent() {
         return Student;
     }
 
-    public void setStudent(Set<Student> student) {
+    public void setStudent(List<Student> student) {
         Student = student;
     }
 }

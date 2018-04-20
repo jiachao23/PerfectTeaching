@@ -14,9 +14,8 @@ layui.define([ 'layer',  'table','common','util'], function (exports) {
             {field: 'num', align:'center', title: '实验编号',unresize:true}
             ,{field: 'name', align:'center', title: '实验主题',unresize:true}
             ,{field: 'content', align:'center', title: '实验内容',unresize:true}
-            ,{field: 'start', align:'center', title: '开始时间',unresize:true,templet: '<div>{{# if(d.start!=null){ }}{{ layui.util.toDateString(d.start) }}{{# } }}</div>'}
-            ,{field: 'end', align:'center', title: '结束时间',unresize:true,templet: '<div>{{# if(d.end!=null){ }}{{ layui.util.toDateString(d.end) }}{{# } }}</div>'}
             ,{field: 'teacher', title: '指导老师',unresize:true,templet: '<div>{{d.teacher.name}}</div>'}
+            ,{title: '项目状态',templet: '#status',unresize:true}
             ,{fixed: 'right',  title:'操作',align:'center', toolbar: '#operator',unresize:true}
         ]]
     });

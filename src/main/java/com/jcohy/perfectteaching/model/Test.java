@@ -26,6 +26,11 @@ public class Test implements Serializable{
     @Column(name = "option")
     private String option;
 
+    //对应的测试题
+    @OneToOne
+    @JoinColumn(name = "lab_id")
+    private Lab lab;
+
     public Integer getId() {
         return id;
     }
@@ -56,5 +61,13 @@ public class Test implements Serializable{
 
     public void setOption(String option) {
         this.option = option;
+    }
+
+    public Lab getLab() {
+        return lab;
+    }
+
+    public void setLab(Lab lab) {
+        this.lab = lab;
     }
 }

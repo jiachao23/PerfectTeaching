@@ -52,7 +52,8 @@ public class PerfectTeachingApplication extends WebMvcConfigurerAdapter {
 
         registry.addViewController("/admin/teacher/index").setViewName("/admin/teacher/index");
 
-        registry.addViewController("/admin/expert/index").setViewName("/admin/expert/index");
+        registry.addViewController("/admin/lab/index").setViewName("/admin/lab/index");
+        registry.addViewController("/admin/plan/index").setViewName("/admin/plan/index");
 	}
 
     @Bean

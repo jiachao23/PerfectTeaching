@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> - 课程信息</title>
+    <title> - 课程计划</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
 
@@ -30,54 +30,56 @@
                 <form id="form1" class="layui-form "  lay-filter="form">
 
                     <div class="layui-form-item">
-                        <input type="hidden" name="id"  value="${(report.id)!}" >
+                        <input type="hidden" name="id"  value="${(plan.id)!}" >
                     </div>
                     <div class="layui-form-item">
                         <input type="hidden" name="teacher"  value="${(Session.user.id?c)!}" >
                     </div>
                     <div class="layui-form-item" style="margin-top: 10px">
-                        <label class="layui-form-label">课程编号</label>
+                        <label class="layui-form-label">课程/实验编号</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="num" lay-verify="number"  placeholder="请输入课程编号" value="${report.num}"
+                            <input type="text" name="num" lay-verify="number"  placeholder="请输入课程编号" value="${plan.lab.num}"
                                    autocomplete="off" class="layui-input ">
                         </div>
                     </div>
 
-                    <div class="layui-form-item" style="margin-top: 10px">
-                        <label class="layui-form-label">课程主题</label>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">请选择院系专业</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="name" lay-verify="number"  placeholder="请输入课程主题" value="${report.name}"
-                                   autocomplete="off" class="layui-input ">
+                            <select name="dept" lay-filter="depts">
+                                <option value="">请选择院系</option>
+                                <#list depts as x>
+                                    <option value="${x.id}"
+                                        <#if (plan.major.name == x.name)> selected="selected" </#if>
+                                    >${x.name}</option>
+                                </#list>
+                            </select>
+                        </div>
+                        <div class="layui-input-inline">
+                            <select name="major" lay-filter="majors">
+                                <option value="">请选择专业</option>
+                            </select>
                         </div>
                     </div>
 
                     <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label">课程内容</label>
+                        <label class="layui-form-label">计划内容</label>
                         <div class="layui-input-block">
-                            <textarea name="content" placeholder="请输入内容" class="layui-textarea">${report.content}</textarea>
+                            <textarea name="content" placeholder="请输入内容" class="layui-textarea">${plan.content}</textarea>
                         </div>
                     </div>
 
                     <div class="layui-form-item">
-                        <label class="layui-form-label">上传</label>
-                        <div class="layui-input-block">
-                            <button type="button" class="layui-btn" id="upload">
-                                <i class="layui-icon">&#xe67c;</i>上传课程资料
-                            </button>
-                            <input type="hidden" name="book">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
                         <label class="layui-form-label">开始时间</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="start" value="${(allot.start)!}" class="layui-input" id="start" lay-verify="required">
+                            <input type="text" name="start" value="${(plan.start)!}" class="layui-input" id="start" lay-verify="required">
                         </div>
                     </div>
 
                     <div class="layui-form-item">
                         <label class="layui-form-label">结束时间</label>
                         <div class="layui-input-inline">
-                            <input type="text" name="end" value="${(allot.end)!}" class="layui-input" id="end" lay-verify="required">
+                            <input type="text" name="end" value="${(plan.end)!}" class="layui-input" id="end" lay-verify="required">
                         </div>
                     </div>
 
@@ -97,7 +99,7 @@
 <script type="text/javascript">
     layui.config({
         base: '${ctx}/js/'
-    }).use('teacher/report/form');
+    }).use('admin/plan/form');
 </script>
 </body>
 

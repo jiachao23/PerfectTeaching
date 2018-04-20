@@ -10,6 +10,29 @@
     laydate.render({
         elem: '#end' //指定元素
     });
+
+    form.on('select(depts)', function(data){
+        var select = $("[name='majors']");
+        $.ajax({
+            type:"GET",
+            data:{"id":data.value},
+            url:"/major/dept",
+            async: false,
+            success:function (ret) {
+                $("[name='majors'] option:gt(0)").remove();
+                var option='';
+                var data = ret.majors;
+                console.log(data);
+                for(var i=0;i<data.length;i++){
+                    option+='<option value="'+data[i].id+'">'+data[i].name+'</option></br>';
+                }
+                select.append(option);
+            }
+        });
+        form.render('select','form');
+    });
+
+
     //自定义验证
     form.verify({
         name: function (value) {
@@ -54,14 +77,14 @@
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: "/report/save",
+            url: "/admin/plan/save",
             data: data.field,
             success: function(ret){
                 if(ret.isOk){
                     layer.msg("操作成功", {time: 2000},function(){
                         var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
                         parent.layer.close(index);
-                        window.parent.location.href="/teacher/report/index";
+                        window.parent.location.href="/admin/plan/index";
                     });
                 }else{
                     layer.msg(ret.msg, {time: 2000});
@@ -71,6 +94,6 @@
         return false;
     });
 
-    exports('teacher/report/form', {});
+    exports('admin/plan/form', {});
 });
 

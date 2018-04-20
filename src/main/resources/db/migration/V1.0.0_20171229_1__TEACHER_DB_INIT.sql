@@ -129,27 +129,6 @@ CREATE TABLE `student` (
 -- ----------------------------
 INSERT INTO `student` VALUES ('1', '1306', '小美', '女', '2018-04-04 10:54:55', '1', 'stu@qq.com', '123456', '123456', '1', '1');
 
-
--- ----------------------------
--- Table structure for test
--- ----------------------------
-DROP TABLE IF EXISTS `test`;
-CREATE TABLE `test` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `content` varchar(255) DEFAULT NULL,
-  `option` varchar(255) DEFAULT NULL,
-  `answer` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of test
--- ----------------------------
-INSERT INTO `test` VALUES ('1', 'who?', 'A,B,C,D', 'A');
-INSERT INTO `test` VALUES ('2', 'where', 'A,B,C,D', 'B');
-INSERT INTO `test` VALUES ('3', 'how?', 'A,B,C,D', 'C');
-INSERT INTO `test` VALUES ('4', 'why?', 'A,B,C,D', 'D');
-
 -- ----------------------------
 -- Table structure for lab
 -- ----------------------------
@@ -160,20 +139,43 @@ CREATE TABLE `lab` (
   `lab_name` varchar(50) DEFAULT NULL,
   `lab_content` varchar(50) DEFAULT NULL,
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '状态',
-  `test_id` int(11) DEFAULT NULL,
+  `type` VARCHAR (11) DEFAULT NULL ,
   `teacher_id` INT (11) DEFAULT NULL ,
   PRIMARY KEY (`id`),
-  KEY `lab_test_id` (`test_id`),
   KEY `lab_teacher_id` (`teacher_id`),
-  CONSTRAINT `lab_teacher_id` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`id`),
-  CONSTRAINT `lab_test_id` FOREIGN KEY (`test_id`) REFERENCES `test` (`id`)
+  CONSTRAINT `lab_teacher_id` FOREIGN KEY (`teacher_id`) REFERENCES `teacher` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- ----------------------------
 -- Records of lab
 -- ----------------------------
-INSERT INTO `lab` VALUES ('1', '1', '1', '1', '0', '1','1');
+INSERT INTO `lab` VALUES ('1', '1', '1', '1', '0','lab','1');
+
+-- ----------------------------
+-- Table structure for test
+-- ----------------------------
+DROP TABLE IF EXISTS `test`;
+CREATE TABLE `test` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `index` int(11) NOT NULL ,
+  `content` varchar(255) DEFAULT NULL,
+  `option` varchar(255) DEFAULT NULL,
+  `answer` varchar(255) DEFAULT NULL,
+  `lab_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lab_test_id` (`lab_id`),
+  CONSTRAINT `lab_test_id` FOREIGN KEY (`lab_id`) REFERENCES `lab` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of test
+-- ----------------------------
+INSERT INTO `test` VALUES ('1','1', 'who?', 'A,B,C,D', 'A', '1');
+INSERT INTO `test` VALUES ('2','2', 'where', 'A,B,C,D', 'B', '1');
+INSERT INTO `test` VALUES ('3','3', 'how?', 'A,B,C,D', 'C', '1');
+INSERT INTO `test` VALUES ('4','4','why?', 'A,B,C,D', 'D', '1');
+
 
 
 
@@ -206,16 +208,23 @@ CREATE TABLE `plan` (
   `content` text,
   `dept_id` int(11) DEFAULT NULL,
   `major_id` int(11) DEFAULT NULL,
+  `lab_id`  int(11) DEFAULT NULL,
   `start` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `end` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `plan_dept_id` (`dept_id`),
+  KEY `plan_major_id` (`major_id`),
+  KEY `plan_lab_id` (`lab_id`),
+  CONSTRAINT `plan_dept_id` FOREIGN KEY (`dept_id`) REFERENCES `dept` (`id`),
+  CONSTRAINT `plan_major_id` FOREIGN KEY (`major_id`) REFERENCES `major` (`id`),
+  CONSTRAINT `plan_lab_id` FOREIGN KEY (`lab_id`) REFERENCES `lab` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- ----------------------------
 -- Records of plan
 -- ----------------------------
-INSERT INTO `plan` VALUES ('1', '1', '1', '2', '2018-04-04 10:27:13', '2018-04-04 10:27:13');
+INSERT INTO `plan` VALUES ('1', '1', '1', '2', '1','2018-04-04 10:27:13', '2018-04-04 10:27:13');
 
 -- ----------------------------
 -- Table structure for report

@@ -24,11 +24,26 @@ public class Plan implements Serializable{
     @Column(name = "content")
     private String content;
     //院系
-    @Column(name = "dept_id")
+    @OneToOne
+    @JoinColumn(name = "dept_id")
     private Dept dept;
     //专业
-    @Column(name = "major_id")
+    @OneToOne
+    @JoinColumn(name = "major_id")
     private Major major;
+
+    @OneToOne
+    @JoinColumn
+    private Lab lab;
+
+    public Lab getLab() {
+        return lab;
+    }
+
+    public void setLab(Lab lab) {
+        this.lab = lab;
+    }
+
     //开始时间
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")

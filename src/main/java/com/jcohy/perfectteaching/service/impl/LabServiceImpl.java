@@ -1,6 +1,7 @@
 package com.jcohy.perfectteaching.service.impl;
 
 import com.jcohy.perfectteaching.model.Lab;
+import com.jcohy.perfectteaching.model.Teacher;
 import com.jcohy.perfectteaching.repository.LabRepository;
 import com.jcohy.perfectteaching.repository.ReportRepository;
 import com.jcohy.perfectteaching.service.LabService;
@@ -71,5 +72,10 @@ public class LabServiceImpl implements LabService{
     @Override
     public List<Lab> findByType(String Type) {
         return labRepository.findByType(Type);
+    }
+
+    @Override
+    public List<Lab> findByTeacher(Teacher teacher) {
+        return labRepository.findByTeacher(teacher);
     }
 }
