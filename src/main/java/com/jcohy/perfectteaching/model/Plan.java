@@ -36,6 +36,13 @@ public class Plan implements Serializable{
     @JoinColumn
     private Lab lab;
 
+    //开始时间
+    @Column(name = "start")
+    private String start;
+    //结束时间
+    @Column(name = "end")
+    private String end;
+
     public Lab getLab() {
         return lab;
     }
@@ -43,17 +50,6 @@ public class Plan implements Serializable{
     public void setLab(Lab lab) {
         this.lab = lab;
     }
-
-    //开始时间
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @Column(name = "start")
-    private Date start;
-    //结束时间
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @Column(name = "end")
-    private Date end;
 
     public Integer getId() {
         return id;
@@ -87,19 +83,19 @@ public class Plan implements Serializable{
         this.major = major;
     }
 
-    public Date getStart() {
+    public String getStart() {
         return start;
     }
 
-    public void setStart(Date start) {
+    public void setStart(String start) {
         this.start = start;
     }
 
-    public Date getEnd() {
+    public String getEnd() {
         return end;
     }
 
-    public void setEnd(Date end) {
+    public void setEnd(String end) {
         this.end = end;
     }
 }

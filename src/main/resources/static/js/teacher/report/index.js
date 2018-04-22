@@ -1,8 +1,7 @@
-layui.define([ 'layer',  'table','common','util'], function (exports) {
+layui.define([ 'layer',  'table','common'], function (exports) {
     var $ = layui.jquery,
         layer = layui.layer,
         common = layui.common,
-        util = layui.util,
         table  = layui.table ;
     table.render({
         elem: '#report'
@@ -11,13 +10,14 @@ layui.define([ 'layer',  'table','common','util'], function (exports) {
         ,url: '/report/list' //数据接口
         ,page: true //开启分页
         ,cols: [[ //表头
-            {field: 'num', align:'center', title: '实验编号',unresize:true}
-            ,{field: 'name', align:'center', title: '实验主题',unresize:true}
-            ,{field: 'content', align:'center', title: '实验内容',unresize:true}
-            ,{field: 'start', align:'center', title: '开始时间',unresize:true,templet: '<div>{{# if(d.start!=null){ }}{{ layui.util.toDateString(d.start) }}{{# } }}</div>'}
-            ,{field: 'end', align:'center', title: '结束时间',unresize:true,templet: '<div>{{# if(d.end!=null){ }}{{ layui.util.toDateString(d.end) }}{{# } }}</div>'}
-            ,{field: 'teacher', title: '指导老师',unresize:true,templet: '<div>{{d.teacher.name}}</div>'}
-            ,{fixed: 'right',  title:'操作',align:'center', toolbar: '#operator',unresize:true}
+            {field: 'labNum', align:'center', title: '实验/课程编号',unresize:true,templet: '<div>{{d.lab.num}}</div>'}
+            ,{field: 'labName', align:'center', title: '实验/课程主题',unresize:true,templet: '<div>{{d.lab.name}}</div>'}
+            ,{field: 'studentNum', align:'center', title: '学生学号',unresize:true,templet: '<div>{{d.student.num}}</div>'}
+            ,{field: 'studentName', align:'center', title: '学生姓名',unresize:true,templet: '<div>{{d.student.name}}</div>'}
+            ,{field: 'option', align:'center', title: '学生选项',unresize:true}
+            ,{field: 'grade', align:'center', title: '分数',unresize:true}
+            ,{field: 'remark', align:'center', title: '评语',unresize:true}
+            ,{fixed: 'right',  title:'操作',align:'center', toolbar: '#operator',unresize:true,width:300}
         ]]
     });
 
@@ -26,37 +26,51 @@ layui.define([ 'layer',  'table','common','util'], function (exports) {
         var data = obj.data;
         if(obj.event === 'del'){
             del(data.id);
-        } else if(obj.event === 'edit'){
-            common.frame_show('编辑','/report/form?id='+data.id);
+        } else if(obj.event === 'autoCheck'){
+           autoCheck(data.id);
+        }else if(obj.event === 'edit'){
+            edit(data.id);
         }
     });
-
-    //添加数据
-    $('#addProject').click(function () {
-        var index = layer.load(1);
-        setTimeout(function () {
-            layer.close(index);
-            common.frame_show('添加','/report/form');
-            // layer.msg('打开添加窗口');
-        }, 500);
-    });
-
-
-    //输出接口，主要是两个函数，一个删除一个编辑
-    var datalist = {
-        deleteData: function (id) {
-            layer.confirm('确定删除？', {
-                btn: ['确定', '取消'] //按钮
-            }, function () {
-                del(id);
-            }, function () {
-
+    function edit(id) {
+        layer.prompt('请输入意见',function(val, index){
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: "/report/change/" + id + "?advise="+val,
+                success: function (ret) {
+                    if (ret.isOk) {
+                        layer.msg("操作成功", {time: 2000}, function () {
+                            layer.close(index);
+                            window.location.href = "/teacher/report/index";
+                        });
+                    } else {
+                        layer.msg(ret.msg, {time: 2000});
+                    }
+                }
             });
-        },
-        editData: function (id) {
-            common.frame_show('编辑','/report/form?id='+id);
-        }
-    };
+        });
+    }
+
+    function autoCheck(id) {
+        var index = layer.load(0, {shade: false});
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                url: "/report/autoCheck/"+id,
+                success: function (ret) {
+                    if (ret.isOk) {
+                        layer.msg("操作成功", {time: 2000}, function () {
+                            layer.close(index);
+                            window.location.href = "/teacher/report/index";
+                        });
+                    } else {
+                        layer.msg(ret.msg, {time: 2000});
+                    }
+                }
+            });
+    }
+
     function del(id) {
         layer.confirm('真的删除行么', function (index) {
             $.ajax({
@@ -76,5 +90,7 @@ layui.define([ 'layer',  'table','common','util'], function (exports) {
             });
         });
     }
-    exports('teacher/report/index', datalist);
+
+
+    exports('teacher/report/index');
 });

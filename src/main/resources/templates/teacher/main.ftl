@@ -57,7 +57,7 @@
                     <li class="layui-nav-item">
                         <a href="javascript:;"><i class="fa fa-file-text"></i>信息管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;" data-url="${ctx!}/teacher/grade/index" data-id="4">成绩管理</a></dd>
+                            <#--<dd><a href="javascript:;" data-url="${ctx!}/teacher/grade/index" data-id="4">成绩管理</a></dd>-->
                             <dd><a href="javascript:;" data-url="${ctx!}/teacher/report/index" data-id="5">报告管理</a></dd>
                         </dl>
                     </li>

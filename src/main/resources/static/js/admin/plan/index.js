@@ -1,8 +1,7 @@
-layui.define([ 'layer',  'table','common','util'], function (exports) {
+layui.define([ 'layer',  'table','common'], function (exports) {
     var $ = layui.jquery,
         layer = layui.layer,
         common = layui.common,
-        util = layui.util,
         table  = layui.table ;
     table.render({
         elem: '#plan'
@@ -17,8 +16,8 @@ layui.define([ 'layer',  'table','common','util'], function (exports) {
             ,{field: 'type', align:'center', title: '类型',unresize:true,templet: '<div>{{d.lab.type}}</div>'}
             ,{field: 'dept', align:'center', title: '院系',unresize:true,templet: '<div>{{d.dept.name}}</div>'}
             ,{field: 'major', align:'center', title: '专业',unresize:true,templet: '<div>{{d.major.name}}</div>'}
-            ,{field: 'start', align:'center', title: '开始时间',unresize:true,templet: '<div>{{# if(d.start!=null){ }}{{ layui.util.toDateString(d.start) }}{{# } }}</div>'}
-            ,{field: 'end', align:'center', title: '结束时间',unresize:true,templet: '<div>{{# if(d.end!=null){ }}{{ layui.util.toDateString(d.end) }}{{# } }}</div>'}
+            ,{field: 'start', align:'center', title: '开始时间',unresize:true}
+            ,{field: 'end', align:'center', title: '结束时间',unresize:true}
             ,{fixed: 'right',  title:'操作',align:'center', toolbar: '#operator',unresize:true}
         ]]
     });

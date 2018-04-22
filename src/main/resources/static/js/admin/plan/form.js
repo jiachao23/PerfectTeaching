@@ -12,14 +12,14 @@
     });
 
     form.on('select(depts)', function(data){
-        var select = $("[name='majors']");
+        var select = $("[name='major']");
         $.ajax({
             type:"GET",
             data:{"id":data.value},
             url:"/major/dept",
             async: false,
             success:function (ret) {
-                $("[name='majors'] option:gt(0)").remove();
+                $("[name='major'] option:gt(0)").remove();
                 var option='';
                 var data = ret.majors;
                 console.log(data);

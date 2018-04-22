@@ -8,3 +8,6 @@ package com.jcohy.perfectteaching.controller;
 public class TeacherController extends BaseController{
 
 }
+
+
+

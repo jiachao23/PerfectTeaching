@@ -17,6 +17,9 @@ public class Test implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "index")
+    private Integer index;
+
     @Column(name = "content")
     private String content;
 
@@ -69,5 +72,13 @@ public class Test implements Serializable{
 
     public void setLab(Lab lab) {
         this.lab = lab;
+    }
+
+    public Integer getIndex() {
+        return index;
+    }
+
+    public void setIndex(Integer index) {
+        this.index = index;
     }
 }

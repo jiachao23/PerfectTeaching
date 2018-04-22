@@ -50,7 +50,7 @@
                                 <option value="">请选择院系</option>
                                 <#list depts as x>
                                     <option value="${x.id}"
-                                        <#if (plan.major.name == x.name)> selected="selected" </#if>
+                                        <#if (plan.dept.name == x.name)> selected="selected" </#if>
                                     >${x.name}</option>
                                 </#list>
                             </select>

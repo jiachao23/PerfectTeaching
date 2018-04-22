@@ -1,8 +1,10 @@
 package com.jcohy.perfectteaching.controller;
 
+import com.jcohy.perfectteaching.common.JsonResult;
 import com.jcohy.perfectteaching.common.PageJson;
 import com.jcohy.perfectteaching.model.*;
 import com.jcohy.perfectteaching.service.DeptService;
+import com.jcohy.perfectteaching.service.LabService;
 import com.jcohy.perfectteaching.service.MajorService;
 import com.jcohy.perfectteaching.service.PlanService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class AdminPlanController extends BaseController{
     @Autowired
     private MajorService majorService;
 
+    @Autowired
+    private LabService labService;
+
     @GetMapping("/list")
     @ResponseBody
     public PageJson<Plan> all(@SessionAttribute("user")Teacher teacher, ModelMap map){
@@ -57,4 +62,31 @@ public class AdminPlanController extends BaseController{
         }
         return "admin/plan/form";
     }
+
+    @PostMapping("/save")
+    @ResponseBody
+    public JsonResult save(Plan plan,Integer num){
+        try {
+            Lab lab = labService.findByNum(num);
+            plan.setLab(lab);
+            planService.saveOrUpdate(plan);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonResult.fail(e.getMessage());
+        }
+        return JsonResult.ok();
+    }
+
+    @DeleteMapping("/{id}/del")
+    @ResponseBody
+    public JsonResult del(@PathVariable("id") Integer id){
+        try {
+            planService.delete(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return JsonResult.fail("删除失败");
+        }
+        return JsonResult.ok();
+    }
+
 }

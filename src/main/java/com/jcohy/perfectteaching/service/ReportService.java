@@ -58,4 +58,8 @@ public interface ReportService {
     Report commit(Integer studentId, Integer labsId, String result);
 
     Report findByLabAndTeacher(Lab lab, Student student);
+
+    Report autoCheck(Report report);
+
+    Report addAdvise(Integer id,String advise);
 }
