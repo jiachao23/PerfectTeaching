@@ -47,7 +47,7 @@
                     <li class="layui-nav-item">
                         <a href="javascript:;"><i class="fa fa-user"></i>实验课程管理</a>
                         <dl class="layui-nav-child">
-                            <dd><a href="javascript:;" data-url="${ctx!}/admin/lab/index" data-id="1">实验课程审核</a></dd>
+                            <#--<dd><a href="javascript:;" data-url="${ctx!}/admin/lab/index" data-id="1">实验课程审核</a></dd>-->
                             <dd><a href="javascript:;" data-url="${ctx!}/admin/plan/index" data-id="2">实验课程计划</a></dd>
                         </dl>
                     </li>

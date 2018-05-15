@@ -23,8 +23,8 @@ import java.util.stream.Collectors;
  * Description  :
  */
 @Controller
-@RequestMapping("/teacher/lab")
-public class LabController extends BaseController{
+@RequestMapping("/teacher/course")
+public class CourseController extends BaseController{
 
 
     @Autowired
@@ -32,13 +32,15 @@ public class LabController extends BaseController{
 
     @Autowired
     private LabService labService;
+
     @Autowired
     private BookService bookService;
+
 
     @GetMapping("/list")
     @ResponseBody
     public PageJson<Lab> all(@SessionAttribute("user")Teacher teacher, ModelMap map){
-        List<Lab> labs = excute(teacher,"lab");
+        List<Lab> labs = excute(teacher,"course");
         List<Lab> count = filterSysVersion(teacher,"lab");
         PageJson<Lab> page = new PageJson<>();
         page.setCode(0);
@@ -56,7 +58,7 @@ public class LabController extends BaseController{
             Lab lab = labService.findById(id);
             map.put("lab",lab);
         }
-        return "teacher/lab/form";
+        return "teacher/course/form";
     }
 
     @PostMapping("/save")

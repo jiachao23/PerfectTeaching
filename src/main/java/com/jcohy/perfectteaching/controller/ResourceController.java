@@ -38,10 +38,11 @@ public class ResourceController extends BaseController{
     public PageJson<Book> all(ModelMap map){
         PageRequest pageRequest = getPageRequest();
         Page<Book> books = bookService.findAll(pageRequest);
+        List<Book> allBooks = bookService.findAll();
         PageJson<Book> page = new PageJson<>();
         page.setCode(0);
         page.setMsg("成功");
-        page.setCount(books.getContent().size());
+        page.setCount(allBooks.size());
         page.setData(books.getContent());
         return page;
     }
